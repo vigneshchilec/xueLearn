@@ -7,6 +7,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700&family=Noto+Sans+SC:wght@700;900&family=ZCOOL+KuaiLe&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <style>
   :root{
     --paper: #F5EFD9;
@@ -203,9 +204,24 @@
     .tile .hanzi{ font-size:32px; }
     .tile .pinyin{ font-size:11px; }
   }
+
+  .account-bar{
+    display:flex; align-items:center; justify-content:flex-end; gap:10px;
+    max-width:640px; margin:0 auto 10px; font-size:13px; color: var(--ink-soft);
+  }
+  .account-signout{
+    font-family:'Baloo 2', sans-serif; font-size:13px; font-weight:600;
+    color: var(--ink-soft); background:none; border:1px solid rgba(46,33,21,0.25);
+    border-radius:999px; padding:5px 14px; cursor:pointer;
+  }
+  .account-signout:hover{ color: var(--lantern-deep); border-color: var(--lantern-deep); }
 </style>
 </head>
 <body>
+<div class="account-bar" id="accountBar" style="display:none;">
+  <span id="accountUser"></span>
+  <button class="account-signout" id="signOutBtn">Sign out</button>
+</div>
 <div class="app">
   <div id="menuView">
     <header>
@@ -273,7 +289,27 @@
 </div>
 
 <script>
-const API_BASE = 'http://localhost:5050'; // TODO: replace with your deployed Railway URL
+// ── Auth guard ────────────────────────────────────────────────────────────────
+const SUPABASE_URL = 'https://efsyzwpbysdzqptqshco.supabase.co';
+const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVmc3l6d3BieXNkenFwdHFzaGNvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODMxMDU3NDIsImV4cCI6MjA5ODY4MTc0Mn0.V_fqeXyK7Q9mIfhujXy6TX1yT-t-l5Dce58YbznEPZI';
+const { createClient } = supabase;
+const sb = createClient(SUPABASE_URL, SUPABASE_KEY);
+
+sb.auth.getSession().then(({ data }) => {
+  if (!data.session) { window.location.href = 'login.html'; return; }
+  const user = data.session.user;
+  const name = user.user_metadata?.full_name || user.email.split('@')[0];
+  document.getElementById('accountUser').textContent = 'Hi, ' + name;
+  document.getElementById('accountBar').style.display = 'flex';
+});
+
+document.getElementById('signOutBtn').addEventListener('click', async () => {
+  await sb.auth.signOut();
+  window.location.href = 'login.html';
+});
+
+// ── Custom story generation ───────────────────────────────────────────────────
+const API_BASE = 'https://web-production-9ad71.up.railway.app';
 
 let customStory = null;
 let path = [];

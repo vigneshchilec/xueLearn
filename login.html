@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ATOP AI — Sign in</title>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+body{
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",system-ui,sans-serif;
+  background:#0D1B2A;color:#fff;
+  display:flex;align-items:center;justify-content:center;
+  min-height:100vh;padding:20px;
+}
+.card{
+  width:100%;max-width:900px;background:#1A2F45;
+  border:1px solid rgba(255,255,255,0.08);border-radius:20px;overflow:hidden;
+  display:grid;grid-template-columns:1fr 1fr;min-height:560px;
+  box-shadow:0 32px 64px rgba(0,0,0,0.4);
+}
+.left{
+  background:#0D1B2A;padding:48px 40px;
+  display:flex;flex-direction:column;justify-content:space-between;
+  border-right:1px solid rgba(255,255,255,0.06);
+}
+.logo{font-size:20px;font-weight:800;letter-spacing:-0.5px}
+.logo span{color:#FF7F3E}
+.hero-char{
+  font-size:clamp(80px,12vw,140px);font-family:serif;font-weight:900;
+  color:#FF7F3E;line-height:1;
+  filter:drop-shadow(0 0 40px rgba(255,127,62,0.3));
+  transition:opacity .4s ease;
+}
+.char-label{font-size:13px;color:#8BA8C4;letter-spacing:.1em;text-transform:uppercase;margin-top:8px;font-weight:500}
+.left-footer{font-size:13px;color:#8BA8C4;line-height:1.6}
+.left-footer strong{color:#fff;font-weight:500}
+.right{padding:48px 40px;display:flex;flex-direction:column;justify-content:center}
+.tab-row{
+  display:flex;gap:6px;background:rgba(255,255,255,0.05);
+  border-radius:10px;padding:5px;margin-bottom:28px;
+}
+.tab{
+  flex:1;padding:8px;border-radius:7px;border:none;
+  background:transparent;color:#8BA8C4;font-size:14px;font-weight:600;
+  cursor:pointer;transition:all .15s;text-align:center;font-family:inherit;
+}
+.tab.active{background:#FF7F3E;color:#fff}
+.form-title{font-size:22px;font-weight:700;margin-bottom:6px}
+.form-sub{font-size:14px;color:#8BA8C4;margin-bottom:24px;line-height:1.5}
+.field{margin-bottom:14px}
+.field label{display:block;font-size:12px;font-weight:600;color:#8BA8C4;margin-bottom:6px;letter-spacing:.04em;text-transform:uppercase}
+.field input{
+  width:100%;padding:12px 14px;background:rgba(255,255,255,0.06);
+  border:1px solid rgba(255,255,255,0.1);border-radius:10px;
+  color:#fff;font-size:15px;outline:none;transition:border-color .15s;font-family:inherit;
+}
+.field input::placeholder{color:#8BA8C4}
+.field input:focus{border-color:#FF7F3E}
+.btn-primary{
+  width:100%;padding:13px;border-radius:10px;background:#FF7F3E;color:#fff;
+  font-size:15px;font-weight:700;border:none;cursor:pointer;
+  transition:opacity .15s,transform .1s;margin-top:4px;font-family:inherit;
+}
+.btn-primary:hover{opacity:.9;transform:translateY(-1px)}
+.btn-primary:disabled{opacity:.5;cursor:default;transform:none}
+.divider{display:flex;align-items:center;gap:12px;margin:16px 0;color:#8BA8C4;font-size:13px}
+.divider::before,.divider::after{content:'';flex:1;height:1px;background:rgba(255,255,255,0.08)}
+.btn-google{
+  width:100%;padding:12px;border-radius:10px;
+  background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.12);
+  color:#fff;font-size:15px;font-weight:600;cursor:pointer;
+  transition:background .15s;display:flex;align-items:center;justify-content:center;gap:10px;
+  font-family:inherit;
+}
+.btn-google:hover{background:rgba(255,255,255,0.1)}
+.google-icon{width:18px;height:18px;flex-shrink:0}
+.msg{font-size:13px;text-align:center;min-height:20px;margin-top:14px;font-weight:500;line-height:1.5}
+.msg.error{color:#ff6b6b}
+.msg.success{color:#3DB87A}
+.msg.info{color:#8BA8C4}
+.forgot{text-align:right;font-size:12px;color:#8BA8C4;margin-top:4px;cursor:pointer;text-decoration:underline}
+.forgot:hover{color:#fff}
+@media(max-width:640px){
+  .card{grid-template-columns:1fr;min-height:auto}
+  .left{padding:28px 24px;flex-direction:row;align-items:center;gap:16px;border-right:none;border-bottom:1px solid rgba(255,255,255,0.06)}
+  .hero-char{font-size:52px}
+  .left-footer{display:none}
+  .right{padding:28px 24px}
+}
+</style>
+</head>
+<body>
+<div class="card">
+  <div class="left">
+    <div class="logo">ATOP<span>AI</span></div>
+    <div>
+      <div class="hero-char" id="hero-char">欢</div>
+      <div class="char-label" id="char-label">huān · welcome</div>
+    </div>
+    <div class="left-footer">
+      <strong>Bilingual learning</strong> for the next generation.<br>
+      双语学习，为下一代而生。
+    </div>
+  </div>
+  <div class="right">
+    <div class="tab-row">
+      <button class="tab active" id="tab-login" onclick="setMode('login')">Sign in 登录</button>
+      <button class="tab" id="tab-signup" onclick="setMode('signup')">Sign up 注册</button>
+    </div>
+    <div id="form-login">
+      <div class="form-title">Welcome back 欢迎回来</div>
+      <div class="form-sub">Sign in to continue your child's learning journey.</div>
+      <div class="field"><label>Email</label><input type="email" id="login-email" placeholder="your@email.com" autocomplete="email"/></div>
+      <div class="field">
+        <label>Password</label>
+        <input type="password" id="login-pw" placeholder="••••••••" autocomplete="current-password"/>
+        <div class="forgot" onclick="forgotPassword()">Forgot password?</div>
+      </div>
+      <button class="btn-primary" id="btn-login" onclick="doLogin()">Sign in →</button>
+      <div class="divider">or</div>
+      <button class="btn-google" onclick="doGoogle()">
+        <svg class="google-icon" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
+        Continue with Google
+      </button>
+      <div class="msg" id="msg-login"></div>
+    </div>
+    <div id="form-signup" style="display:none">
+      <div class="form-title">Create account 创建账号</div>
+      <div class="form-sub">Register as a parent. Add your child's profile after signing up.</div>
+      <div class="field"><label>Your name</label><input type="text" id="signup-name" placeholder="e.g. Li Wei" autocomplete="name"/></div>
+      <div class="field"><label>Email</label><input type="email" id="signup-email" placeholder="your@email.com" autocomplete="email"/></div>
+      <div class="field"><label>Password</label><input type="password" id="signup-pw" placeholder="min. 8 characters" autocomplete="new-password"/></div>
+      <button class="btn-primary" id="btn-signup" onclick="doSignup()">Create account →</button>
+      <div class="divider">or</div>
+      <button class="btn-google" onclick="doGoogle()">
+        <svg class="google-icon" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
+        Continue with Google
+      </button>
+      <div class="msg" id="msg-signup"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+// ── CONFIG — replace with your real anon key ──────────────────────────────────
+const SUPABASE_URL = 'https://efsyzwpbysdzqptqshco.supabase.co';
+const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVmc3l6d3BieXNkenFwdHFzaGNvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODMxMDU3NDIsImV4cCI6MjA5ODY4MTc0Mn0.V_fqeXyK7Q9mIfhujXy6TX1yT-t-l5Dce58YbznEPZI';
+// ─────────────────────────────────────────────────────────────────────────────
+
+const { createClient } = supabase;
+const sb = createClient(SUPABASE_URL, SUPABASE_KEY);
+
+// Redirect if already logged in
+sb.auth.getSession().then(({ data }) => {
+  if (data.session) window.location.href = 'games.html';
+});
+
+const CHARS = {
+  login:  { char:'进', label:'jìn · enter'    },
+  signup: { char:'新', label:'xīn · new'      },
+};
+
+function setHeroChar(key) {
+  const el = document.getElementById('hero-char');
+  const lb = document.getElementById('char-label');
+  el.style.opacity = '0';
+  setTimeout(() => {
+    const d = CHARS[key];
+    if (d) { el.textContent = d.char; lb.textContent = d.label; }
+    el.style.opacity = '1';
+  }, 200);
+}
+
+function setMode(mode) {
+  const isLogin = mode === 'login';
+  document.getElementById('form-login').style.display  = isLogin ? '' : 'none';
+  document.getElementById('form-signup').style.display = isLogin ? 'none' : '';
+  document.getElementById('tab-login').classList.toggle('active', isLogin);
+  document.getElementById('tab-signup').classList.toggle('active', !isLogin);
+  setHeroChar(mode);
+}
+
+function setMsg(id, text, type) {
+  const el = document.getElementById(id);
+  el.textContent = text; el.className = 'msg ' + type;
+}
+function setLoading(btnId, on) {
+  const btn = document.getElementById(btnId);
+  btn.disabled = on;
+  btn.textContent = on ? 'Please wait...' : (btnId === 'btn-login' ? 'Sign in →' : 'Create account →');
+}
+
+async function doLogin() {
+  const email = document.getElementById('login-email').value.trim();
+  const pw    = document.getElementById('login-pw').value;
+  if (!email || !pw) { setMsg('msg-login','Please fill in all fields.','error'); return; }
+  setLoading('btn-login', true);
+  const { error } = await sb.auth.signInWithPassword({ email, password: pw });
+  if (error) { setMsg('msg-login', error.message, 'error'); setLoading('btn-login', false); }
+  else { setMsg('msg-login','Signed in! Redirecting...','success'); setTimeout(()=>window.location.href='games.html',800); }
+}
+
+async function doSignup() {
+  const name  = document.getElementById('signup-name').value.trim();
+  const email = document.getElementById('signup-email').value.trim();
+  const pw    = document.getElementById('signup-pw').value;
+  if (!name||!email||!pw) { setMsg('msg-signup','Please fill in all fields.','error'); return; }
+  if (pw.length < 8)      { setMsg('msg-signup','Password must be at least 8 characters.','error'); return; }
+  setLoading('btn-signup', true);
+  const { error } = await sb.auth.signUp({ email, password: pw, options:{ data:{ full_name: name } } });
+  if (error) { setMsg('msg-signup', error.message, 'error'); setLoading('btn-signup', false); }
+  else       { setMsg('msg-signup','✓ Check your email to confirm your account!','success'); setLoading('btn-signup', false); }
+}
+
+async function doGoogle() {
+  const { error } = await sb.auth.signInWithOAuth({
+    provider: 'google',
+    options: { redirectTo: window.location.origin + '/games.html' }
+  });
+  if (error) alert(error.message);
+}
+
+async function forgotPassword() {
+  const email = document.getElementById('login-email').value.trim();
+  if (!email) { setMsg('msg-login','Enter your email above first.','error'); return; }
+  const { error } = await sb.auth.resetPasswordForEmail(email, { redirectTo: window.location.origin+'/reset.html' });
+  if (error) setMsg('msg-login', error.message, 'error');
+  else       setMsg('msg-login','✓ Password reset email sent!','success');
+}
+
+document.addEventListener('keydown', e => {
+  if (e.key !== 'Enter') return;
+  if (document.getElementById('form-signup').style.display === 'none') doLogin();
+  else doSignup();
+});
+</script>
+</body>
+</html>
