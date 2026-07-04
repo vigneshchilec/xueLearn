@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>小明的森林历险 · Xiaoming's Forest Adventure</title>
+<title>学中文故事 · Learn Chinese Through Story</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700&family=Noto+Sans+SC:wght@700;900&family=ZCOOL+KuaiLe&display=swap" rel="stylesheet">
@@ -14,9 +14,6 @@
     --ink: #2E2115;
     --ink-soft: #5C4A36;
     --forest: #2F5233;
-    --forest-light: #6B8F52;
-    --lantern: #C13B3B;
-    --lantern-deep: #922424;
     --gold: #E8A83E;
     --card-radius: 22px;
   }
@@ -36,150 +33,63 @@
   }
   .app{ width:100%; max-width: 640px; }
 
-  header{ text-align:center; margin-bottom: 22px; }
+  header{ text-align:center; margin-bottom: 28px; }
   .eyebrow{
     font-size:13px; letter-spacing:.14em; text-transform:uppercase;
     color: var(--forest); font-weight:600; margin:0 0 6px;
   }
   h1{
     font-family:'ZCOOL KuaiLe', 'Baloo 2', sans-serif;
-    font-size: clamp(26px, 6vw, 34px);
-    margin: 0 0 4px;
-    color: var(--lantern-deep);
+    font-size: clamp(28px, 7vw, 38px);
+    margin: 0 0 6px;
+    color: #922424;
   }
-  .subtitle{ margin:0; font-size:14px; color: var(--ink-soft); }
+  .subtitle{ margin:0; font-size:15px; color: var(--ink-soft); }
 
-  .stage{
+  .grid{
+    display:grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 18px;
+  }
+  .game-card{
+    display:block;
+    text-decoration:none;
+    color: var(--ink);
     background: var(--paper-deep);
     border: 3px solid var(--ink);
     border-radius: var(--card-radius);
-    padding: 14px;
-    box-shadow: 0 8px 0 rgba(46,33,21,0.12);
-  }
-  .illustration{
-    width:100%;
-    display:block;
-    border-radius: 14px;
-    overflow:hidden;
-    background:#fff;
-  }
-  .illustration svg{ width:100%; height:auto; display:block; }
-
-  .caption{
-    margin: 16px 4px 4px;
-    font-size: 16px;
-    line-height:1.55;
-    color: var(--ink);
-  }
-  .tag{
-    display:inline-flex;
-    align-items:center;
-    gap:6px;
-    margin: 10px 4px 0;
-    padding: 5px 12px;
-    background: rgba(193,59,59,0.1);
-    color: var(--lantern-deep);
-    border-radius: 999px;
-    font-size: 13px;
-    font-weight:600;
-  }
-
-  .prompt{
-    margin: 20px 4px 10px;
-    font-size: 14px;
-    color: var(--forest);
-    font-weight:600;
-  }
-
-  .choices{
-    display:flex;
-    gap:14px;
-    flex-wrap:wrap;
-    justify-content:center;
-    margin-top: 6px;
-  }
-  .tile{
-    position:relative;
-    width: 150px;
-    background: var(--paper);
-    border: 3px solid var(--ink);
-    border-radius: 18px;
-    padding: 14px 10px 12px;
+    padding: 22px 16px;
     text-align:center;
-    cursor:pointer;
-    transition: transform .12s ease, background .12s ease, box-shadow .12s ease;
-    box-shadow: 0 5px 0 rgba(46,33,21,0.18);
+    box-shadow: 0 6px 0 rgba(46,33,21,0.15);
+    transition: transform .12s ease, box-shadow .12s ease, background .12s ease;
   }
-  .tile:hover{
+  .game-card:hover{
+    transform: translateY(-4px);
     background: var(--gold);
-    transform: translateY(-3px);
   }
-  .tile:active{
+  .game-card:active{
     transform: translateY(2px);
-    box-shadow: 0 2px 0 rgba(46,33,21,0.18);
+    box-shadow: 0 2px 0 rgba(46,33,21,0.15);
   }
-  .tile .hanzi{
-    font-family:'Noto Sans SC', sans-serif;
-    font-weight:900;
+  .game-card .emoji{
     font-size: 44px;
-    line-height:1;
     display:block;
-    color: var(--ink);
+    margin-bottom: 8px;
   }
-  .tile .pinyin{
+  .game-card .title-cn{
+    font-family:'ZCOOL KuaiLe', 'Baloo 2', sans-serif;
+    font-size: 19px;
     display:block;
-    margin-top:8px;
-    font-size:13px;
+    margin-bottom: 4px;
+  }
+  .game-card .title-en{
+    font-size: 12px;
     color: var(--ink-soft);
-    font-weight:600;
+    display:block;
   }
-  .tile .speak{
-    position:absolute;
-    top:6px;
-    right:6px;
-    width:26px;
-    height:26px;
-    border-radius:50%;
-    border: none;
-    background: rgba(47,82,51,0.12);
-    color: var(--forest);
-    font-size:13px;
-    cursor:pointer;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-  }
-  .tile .speak:hover{ background: var(--forest); color:#fff; }
 
-  .restart-row{ text-align:center; margin-top: 18px; }
-  .restart{
-    font-family:'Baloo 2', sans-serif;
-    font-weight:700;
-    font-size:15px;
-    background: var(--lantern);
-    color:#fff;
-    border:3px solid var(--ink);
-    border-radius: 999px;
-    padding: 10px 26px;
-    cursor:pointer;
-    box-shadow: 0 5px 0 rgba(46,33,21,0.25);
-  }
-  .restart:hover{ background: var(--lantern-deep); }
-  .restart:active{ transform: translateY(2px); box-shadow: 0 2px 0 rgba(46,33,21,0.25); }
-
-  .trail{
-    display:flex; gap:6px; justify-content:center; margin-top:22px;
-  }
-  .trail span{
-    width:8px; height:8px; border-radius:50%;
-    background: rgba(46,33,21,0.18);
-  }
-  .trail span.done{ background: var(--forest); }
-
-  @media (max-width:420px){
-    .tile{ width: 30%; padding:10px 6px 10px; }
-    .tile .hanzi{ font-size: 32px; }
-    .tile .pinyin{ font-size:11px; }
+  @media (max-width:480px){
+    .grid{ grid-template-columns: 1fr; }
   }
 </style>
 </head>
@@ -187,260 +97,32 @@
 <div class="app">
   <header>
     <p class="eyebrow">Learn Chinese through story</p>
-    <h1>小明的森林历险</h1>
-    <p class="subtitle">Xiaoming's Forest Adventure — tap the character that shows what he should do next</p>
+    <h1>学中文故事</h1>
+    <p class="subtitle">Pick an adventure — tap the Chinese character that shows what happens next</p>
   </header>
 
-  <div class="stage">
-    <div class="illustration" id="illustration"></div>
-    <p class="caption" id="caption"></p>
-    <p class="tag" id="tag" style="display:none;"></p>
-    <p class="prompt" id="prompt">What should Xiaoming do?</p>
-    <div class="choices" id="choices"></div>
-    <div class="restart-row" id="restartRow" style="display:none;">
-      <button class="restart" id="restartBtn">重新开始 · Play again</button>
-    </div>
+  <div class="grid">
+    <a class="game-card" href="forest.html">
+      <span class="emoji">🐯</span>
+      <span class="title-cn">小明的森林历险</span>
+      <span class="title-en">Forest Adventure</span>
+    </a>
+    <a class="game-card" href="city.html">
+      <span class="emoji">🏙️</span>
+      <span class="title-cn">小美的城市大冒险</span>
+      <span class="title-en">Lost in the City</span>
+    </a>
+    <a class="game-card" href="doctor.html">
+      <span class="emoji">🩺</span>
+      <span class="title-cn">王医生的一天</span>
+      <span class="title-en">Dr. Wang's Busy Day</span>
+    </a>
+    <a class="game-card" href="cooking.html">
+      <span class="emoji">🍳</span>
+      <span class="title-cn">妈妈做晚饭</span>
+      <span class="title-en">Mom Cooks Dinner</span>
+    </a>
   </div>
-
-  <div class="trail" id="trail"></div>
 </div>
-
-<script>
-const svgStart = `<svg viewBox="0 0 400 260" xmlns="http://www.w3.org/2000/svg">
-<rect width="400" height="260" fill="#DCE9C8"/>
-<circle cx="340" cy="46" r="26" fill="#E8A83E"/>
-<path d="M0 190 Q80 150 160 188 T400 180 V260 H0 Z" fill="#2F5233"/>
-<path d="M0 210 Q100 185 200 212 T400 205 V260 H0 Z" fill="#3E6B44"/>
-<path d="M40 200 C40 130 60 90 60 90 C60 90 80 130 80 200 Z" fill="#274A2B"/>
-<path d="M300 205 C300 140 322 100 322 100 C322 100 344 140 344 205 Z" fill="#274A2B"/>
-<ellipse cx="150" cy="222" rx="22" ry="8" fill="rgba(0,0,0,0.08)"/>
-<g transform="translate(140,175)">
-  <ellipse cx="10" cy="46" rx="16" ry="7" fill="rgba(0,0,0,0.1)"/>
-  <rect x="0" y="18" width="20" height="26" rx="8" fill="#C13B3B"/>
-  <circle cx="10" cy="8" r="12" fill="#F2C9A0"/>
-  <rect x="-4" y="24" width="8" height="18" rx="4" fill="#F2C9A0"/>
-  <rect x="16" y="24" width="8" height="18" rx="4" fill="#F2C9A0"/>
-</g>
-<ellipse cx="270" cy="228" rx="34" ry="9" fill="rgba(0,0,0,0.1)"/>
-<g transform="translate(228,168)">
-  <path d="M4 60 C-4 40 0 20 20 12 C46 2 78 10 84 34 C88 50 78 62 60 64 C40 66 14 66 4 60 Z" fill="#E8912E"/>
-  <path d="M20 16 L26 30 M34 12 L38 28 M48 12 L50 28 M62 16 L60 30" stroke="#3A2416" stroke-width="4" stroke-linecap="round"/>
-  <circle cx="16" cy="18" r="13" fill="#E8912E"/>
-  <path d="M8 10 L4 2 M22 8 L24 0" stroke="#E8912E" stroke-width="5" stroke-linecap="round"/>
-  <circle cx="12" cy="17" r="2" fill="#2E2115"/>
-  <path d="M78 40 C92 34 100 40 96 50 C92 58 80 54 78 40 Z" fill="#E8912E"/>
-</g>
-</svg>`;
-
-const svgRun = `<svg viewBox="0 0 400 260" xmlns="http://www.w3.org/2000/svg">
-<rect width="400" height="260" fill="#E7EFD3"/>
-<rect x="30" y="20" width="10" height="220" fill="#8FAE4E"/>
-<rect x="70" y="10" width="10" height="230" fill="#7CA047"/>
-<rect x="120" y="30" width="10" height="210" fill="#8FAE4E"/>
-<rect x="300" y="10" width="10" height="230" fill="#7CA047"/>
-<rect x="350" y="24" width="10" height="216" fill="#8FAE4E"/>
-<path d="M0 220 Q100 200 200 222 T400 214 V260 H0 Z" fill="#3E6B44"/>
-<g transform="translate(150,150) rotate(-8)">
-  <ellipse cx="20" cy="86" rx="20" ry="7" fill="rgba(0,0,0,0.1)"/>
-  <rect x="6" y="30" width="20" height="30" rx="8" fill="#C13B3B"/>
-  <circle cx="16" cy="18" r="13" fill="#F2C9A0"/>
-  <rect x="-6" y="34" width="9" height="22" rx="4" fill="#F2C9A0" transform="rotate(-30 -6 34)"/>
-  <rect x="26" y="34" width="9" height="22" rx="4" fill="#F2C9A0" transform="rotate(30 26 34)"/>
-  <rect x="8" y="56" width="9" height="24" rx="4" fill="#F2C9A0" transform="rotate(20 8 56)"/>
-  <rect x="20" y="56" width="9" height="24" rx="4" fill="#F2C9A0" transform="rotate(-10 20 56)"/>
-</g>
-<g transform="translate(260,175)">
-  <ellipse cx="26" cy="46" rx="30" ry="8" fill="rgba(0,0,0,0.1)"/>
-  <ellipse cx="24" cy="26" rx="26" ry="22" fill="#FFFFFF"/>
-  <circle cx="24" cy="4" r="16" fill="#FFFFFF"/>
-  <ellipse cx="16" cy="2" rx="6" ry="8" fill="#2E2115"/>
-  <ellipse cx="32" cy="2" rx="6" ry="8" fill="#2E2115"/>
-  <circle cx="16" cy="2" r="2.4" fill="#fff"/>
-  <circle cx="32" cy="2" r="2.4" fill="#fff"/>
-  <circle cx="10" cy="20" r="8" fill="#2E2115"/>
-  <circle cx="38" cy="20" r="8" fill="#2E2115"/>
-</g>
-</svg>`;
-
-const svgLaugh = `<svg viewBox="0 0 400 260" xmlns="http://www.w3.org/2000/svg">
-<rect width="400" height="260" fill="#F3E9C7"/>
-<circle cx="330" cy="40" r="24" fill="#E8A83E"/>
-<path d="M0 200 Q100 175 200 202 T400 195 V260 H0 Z" fill="#3E6B44"/>
-<g transform="translate(150,150)">
-  <ellipse cx="16" cy="80" rx="20" ry="7" fill="rgba(0,0,0,0.1)"/>
-  <rect x="4" y="26" width="24" height="30" rx="9" fill="#C13B3B"/>
-  <circle cx="16" cy="14" r="14" fill="#F2C9A0"/>
-  <path d="M8 16 Q16 24 24 16" stroke="#2E2115" stroke-width="2.2" fill="none" stroke-linecap="round"/>
-  <circle cx="10" cy="10" r="1.6" fill="#2E2115"/>
-  <circle cx="22" cy="10" r="1.6" fill="#2E2115"/>
-  <rect x="-8" y="30" width="9" height="20" rx="4" fill="#F2C9A0" transform="rotate(-16 -8 30)"/>
-  <rect x="32" y="30" width="9" height="20" rx="4" fill="#F2C9A0" transform="rotate(16 32 30)"/>
-</g>
-<g transform="translate(210,150)">
-  <ellipse cx="46" cy="86" rx="40" ry="10" fill="rgba(0,0,0,0.1)"/>
-  <path d="M4 66 C-6 44 0 22 24 12 C54 0 92 10 100 38 C105 56 92 70 70 74 C46 78 16 76 4 66 Z" fill="#E8912E"/>
-  <path d="M22 18 L28 34 M38 12 L42 30 M56 12 L58 30 M72 18 L70 34" stroke="#3A2416" stroke-width="4" stroke-linecap="round"/>
-  <circle cx="18" cy="22" r="14" fill="#E8912E"/>
-  <path d="M10 12 L6 2 M26 10 L28 0" stroke="#E8912E" stroke-width="5" stroke-linecap="round"/>
-  <path d="M12 24 Q18 30 24 24" stroke="#2E2115" stroke-width="2" fill="none" stroke-linecap="round"/>
-  <circle cx="13" cy="20" r="2" fill="#2E2115"/>
-  <circle cx="23" cy="20" r="2" fill="#2E2115"/>
-</g>
-</svg>`;
-
-const svgSleep = `<svg viewBox="0 0 400 260" xmlns="http://www.w3.org/2000/svg">
-<rect width="400" height="260" fill="#243352"/>
-<circle cx="330" cy="46" r="20" fill="#F4E9C9"/>
-<circle cx="60" cy="40" r="2" fill="#fff"/>
-<circle cx="110" cy="70" r="2" fill="#fff"/>
-<circle cx="180" cy="30" r="2" fill="#fff"/>
-<circle cx="250" cy="60" r="2" fill="#fff"/>
-<circle cx="30" cy="90" r="2" fill="#fff"/>
-<path d="M0 210 Q100 190 200 214 T400 205 V260 H0 Z" fill="#1D3323"/>
-<g transform="translate(140,190)">
-  <ellipse cx="30" cy="14" rx="46" ry="12" fill="#C13B3B"/>
-  <circle cx="80" cy="6" r="13" fill="#F2C9A0"/>
-  <rect x="-4" y="4" width="14" height="10" rx="5" fill="#F2C9A0"/>
-</g>
-<g transform="translate(250,150)" opacity="0.55">
-  <path d="M4 60 C-4 40 0 20 20 12 C46 2 78 10 84 34 C88 50 78 62 60 64 C40 66 14 66 4 60 Z" fill="#E8912E"/>
-  <circle cx="16" cy="18" r="13" fill="#E8912E"/>
-</g>
-<text x="60" y="120" font-size="20" fill="#F4E9C9" font-family="sans-serif">Z z z...</text>
-</svg>`;
-
-const svgEnd = `<svg viewBox="0 0 400 220" xmlns="http://www.w3.org/2000/svg">
-<rect width="400" height="220" fill="#F5EFD9"/>
-<circle cx="200" cy="110" r="72" fill="none" stroke="#C13B3B" stroke-width="6"/>
-<circle cx="200" cy="110" r="58" fill="none" stroke="#C13B3B" stroke-width="2"/>
-<text x="200" y="130" font-size="70" text-anchor="middle" fill="#C13B3B" font-family="'Noto Sans SC', sans-serif" font-weight="900">完</text>
-</svg>`;
-
-const story = {
-  start: {
-    bg: svgStart,
-    caption: "Xiaoming was walking through the forest when he suddenly saw a tiger! What should he do?",
-    choices: [
-      { char:'跑', pinyin:'pǎo', meaning:'run', next:'run1' },
-      { char:'笑', pinyin:'xiào', meaning:'laugh', next:'laugh1' },
-      { char:'睡', pinyin:'shuì', meaning:'sleep', next:'sleep1' }
-    ]
-  },
-  run1: {
-    bg: svgRun,
-    caption: "Xiaoming ran as fast as he could and ended up deep in a bamboo grove, where a panda watched him with curious eyes.",
-    choices: [
-      { char:'问', pinyin:'wèn', meaning:'ask', next:'end_run_ask' },
-      { char:'藏', pinyin:'cáng', meaning:'hide', next:'end_run_hide' },
-      { char:'走', pinyin:'zǒu', meaning:'walk', next:'end_run_walk' }
-    ]
-  },
-  laugh1: {
-    bg: svgLaugh,
-    caption: "The tiger tilted its head, confused by Xiaoming's laughter, and slowly sat down in front of him.",
-    choices: [
-      { char:'摸', pinyin:'mō', meaning:'pet', next:'end_laugh_pet' },
-      { char:'唱', pinyin:'chàng', meaning:'sing', next:'end_laugh_sing' },
-      { char:'走', pinyin:'zǒu', meaning:'walk', next:'end_laugh_walk' }
-    ]
-  },
-  sleep1: {
-    bg: svgSleep,
-    caption: "Xiaoming lay very still and pretended to sleep. The tiger sniffed him, lost interest, and wandered off into the night.",
-    choices: [
-      { char:'哭', pinyin:'kū', meaning:'cry', next:'end_sleep_cry' },
-      { char:'找', pinyin:'zhǎo', meaning:'look for', next:'end_sleep_find' },
-      { char:'喊', pinyin:'hǎn', meaning:'shout', next:'end_sleep_shout' }
-    ]
-  },
-  end_run_ask: { ending:true, bg:svgEnd, caption:"Xiaoming asked the panda for directions. They became travel buddies and found the way home together. 一个新朋友 — a new friend!" },
-  end_run_hide: { ending:true, bg:svgEnd, caption:"Xiaoming hid quietly behind a bamboo stalk until it felt safe, then found his own way back home." },
-  end_run_walk: { ending:true, bg:svgEnd, caption:"Xiaoming kept walking and discovered a beautiful hidden garden deep inside the bamboo grove." },
-  end_laugh_pet: { ending:true, bg:svgEnd, caption:"Xiaoming gently petted the tiger's fur. From that day on, the tiger became his loyal forest friend." },
-  end_laugh_sing: { ending:true, bg:svgEnd, caption:"Xiaoming sang a cheerful song, and the tiger swayed along happily, purring to the tune." },
-  end_laugh_walk: { ending:true, bg:svgEnd, caption:"Xiaoming and the tiger walked side by side, exploring the forest together as new friends." },
-  end_sleep_cry: { ending:true, bg:svgEnd, caption:"Xiaoming cried a little, but a kind owl heard him and guided him home under the stars." },
-  end_sleep_find: { ending:true, bg:svgEnd, caption:"Xiaoming looked for the path home and followed his own footprints right back to his village." },
-  end_sleep_shout: { ending:true, bg:svgEnd, caption:"Xiaoming shouted for help, and his worried family, already searching for him, heard his voice and came running." }
-};
-
-let path = [];
-
-function speak(char){
-  if(!('speechSynthesis' in window)) return;
-  const u = new SpeechSynthesisUtterance(char);
-  u.lang = 'zh-CN';
-  u.rate = 0.85;
-  window.speechSynthesis.cancel();
-  window.speechSynthesis.speak(u);
-}
-
-function render(id, chosen){
-  const scene = story[id];
-  document.getElementById('illustration').innerHTML = scene.bg;
-  document.getElementById('caption').textContent = scene.caption;
-
-  const tag = document.getElementById('tag');
-  if(chosen){
-    tag.style.display = 'inline-flex';
-    tag.textContent = `You chose: ${chosen.char} ${chosen.pinyin} — ${chosen.meaning}`;
-  } else {
-    tag.style.display = 'none';
-  }
-
-  const choicesEl = document.getElementById('choices');
-  const promptEl = document.getElementById('prompt');
-  const restartRow = document.getElementById('restartRow');
-
-  if(scene.ending){
-    choicesEl.innerHTML = '';
-    promptEl.style.display = 'none';
-    restartRow.style.display = 'block';
-  } else {
-    promptEl.style.display = 'block';
-    restartRow.style.display = 'none';
-    choicesEl.innerHTML = '';
-    scene.choices.forEach(choice => {
-      const tile = document.createElement('div');
-      tile.className = 'tile';
-      tile.innerHTML = `
-        <button class="speak" aria-label="Hear pronunciation">&#128266;</button>
-        <span class="hanzi">${choice.char}</span>
-        <span class="pinyin">${choice.pinyin}</span>
-      `;
-      tile.querySelector('.speak').addEventListener('click', (e) => {
-        e.stopPropagation();
-        speak(choice.char);
-      });
-      tile.addEventListener('click', () => {
-        path.push(id);
-        speak(choice.char);
-        render(choice.next, choice);
-      });
-      choicesEl.appendChild(tile);
-    });
-  }
-  renderTrail();
-}
-
-function renderTrail(){
-  const trail = document.getElementById('trail');
-  const total = 3;
-  const done = Math.min(path.length, total);
-  trail.innerHTML = '';
-  for(let i=0;i<total;i++){
-    const dot = document.createElement('span');
-    if(i < done) dot.className = 'done';
-    trail.appendChild(dot);
-  }
-}
-
-document.getElementById('restartBtn').addEventListener('click', () => {
-  path = [];
-  render('start', null);
-});
-
-render('start', null);
-</script>
 </body>
 </html>

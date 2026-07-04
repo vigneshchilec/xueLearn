@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>小美的城市大冒险 · Xiaomei's City Adventure</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700&family=Noto+Sans+SC:wght@700;900&family=ZCOOL+KuaiLe&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper: #EAF1F8;
+    --paper-deep: #DCE8F3;
+    --ink: #1F2937;
+    --ink-soft: #52606D;
+    --forest: #2B6CB0;
+    --forest-light: #63B3ED;
+    --lantern: #ED8936;
+    --lantern-deep: #C05621;
+    --gold: #F6AD55;
+    --card-radius: 22px;
+  }
+  *{ box-sizing: border-box; }
+  body{
+    margin:0;
+    min-height:100vh;
+    background:
+      radial-gradient(circle at 15% 8%, rgba(43,108,176,0.15), transparent 45%),
+      radial-gradient(circle at 85% 92%, rgba(237,137,54,0.15), transparent 50%),
+      var(--paper);
+    font-family:'Baloo 2', sans-serif;
+    color: var(--ink);
+    display:flex;
+    justify-content:center;
+    padding: 32px 16px 64px;
+  }
+  .app{ width:100%; max-width: 640px; }
+
+  header{ text-align:center; margin-bottom: 22px; }
+  .back-link{
+    display:inline-block; margin-bottom:10px; font-size:13px; font-weight:600;
+    color: var(--ink-soft); text-decoration:none;
+  }
+  .back-link:hover{ color: var(--lantern-deep); }
+  .eyebrow{
+    font-size:13px; letter-spacing:.14em; text-transform:uppercase;
+    color: var(--forest); font-weight:600; margin:0 0 6px;
+  }
+  h1{
+    font-family:'ZCOOL KuaiLe', 'Baloo 2', sans-serif;
+    font-size: clamp(26px, 6vw, 34px);
+    margin: 0 0 4px;
+    color: var(--lantern-deep);
+  }
+  .subtitle{ margin:0; font-size:14px; color: var(--ink-soft); }
+
+  .stage{
+    background: var(--paper-deep);
+    border: 3px solid var(--ink);
+    border-radius: var(--card-radius);
+    padding: 14px;
+    box-shadow: 0 8px 0 rgba(31,41,55,0.12);
+  }
+  .illustration{
+    width:100%;
+    display:block;
+    border-radius: 14px;
+    overflow:hidden;
+    background:#fff;
+  }
+  .illustration svg{ width:100%; height:auto; display:block; }
+
+  .caption{
+    margin: 16px 4px 4px;
+    font-size: 16px;
+    line-height:1.55;
+    color: var(--ink);
+  }
+  .tag{
+    display:inline-flex;
+    align-items:center;
+    gap:6px;
+    margin: 10px 4px 0;
+    padding: 5px 12px;
+    background: rgba(237,137,54,0.12);
+    color: var(--lantern-deep);
+    border-radius: 999px;
+    font-size: 13px;
+    font-weight:600;
+  }
+
+  .prompt{
+    margin: 20px 4px 10px;
+    font-size: 14px;
+    color: var(--forest);
+    font-weight:600;
+  }
+
+  .choices{
+    display:flex;
+    gap:14px;
+    flex-wrap:wrap;
+    justify-content:center;
+    margin-top: 6px;
+  }
+  .tile{
+    position:relative;
+    width: 150px;
+    background: var(--paper);
+    border: 3px solid var(--ink);
+    border-radius: 18px;
+    padding: 14px 10px 12px;
+    text-align:center;
+    cursor:pointer;
+    transition: transform .12s ease, background .12s ease, box-shadow .12s ease;
+    box-shadow: 0 5px 0 rgba(31,41,55,0.18);
+  }
+  .tile:hover{
+    background: var(--gold);
+    transform: translateY(-3px);
+  }
+  .tile:active{
+    transform: translateY(2px);
+    box-shadow: 0 2px 0 rgba(31,41,55,0.18);
+  }
+  .tile .hanzi{
+    font-family:'Noto Sans SC', sans-serif;
+    font-weight:900;
+    font-size: 44px;
+    line-height:1;
+    display:block;
+    color: var(--ink);
+  }
+  .tile .pinyin{
+    display:block;
+    margin-top:8px;
+    font-size:13px;
+    color: var(--ink-soft);
+    font-weight:600;
+  }
+  .tile .speak{
+    position:absolute;
+    top:6px;
+    right:6px;
+    width:26px;
+    height:26px;
+    border-radius:50%;
+    border: none;
+    background: rgba(43,108,176,0.12);
+    color: var(--forest);
+    font-size:13px;
+    cursor:pointer;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+  }
+  .tile .speak:hover{ background: var(--forest); color:#fff; }
+
+  .restart-row{ text-align:center; margin-top: 18px; }
+  .restart{
+    font-family:'Baloo 2', sans-serif;
+    font-weight:700;
+    font-size:15px;
+    background: var(--lantern);
+    color:#fff;
+    border:3px solid var(--ink);
+    border-radius: 999px;
+    padding: 10px 26px;
+    cursor:pointer;
+    box-shadow: 0 5px 0 rgba(31,41,55,0.25);
+  }
+  .restart:hover{ background: var(--lantern-deep); }
+  .restart:active{ transform: translateY(2px); box-shadow: 0 2px 0 rgba(31,41,55,0.25); }
+
+  .trail{
+    display:flex; gap:6px; justify-content:center; margin-top:22px;
+  }
+  .trail span{
+    width:8px; height:8px; border-radius:50%;
+    background: rgba(31,41,55,0.18);
+  }
+  .trail span.done{ background: var(--forest); }
+
+  @media (max-width:420px){
+    .tile{ width: 30%; padding:10px 6px 10px; }
+    .tile .hanzi{ font-size: 32px; }
+    .tile .pinyin{ font-size:11px; }
+  }
+</style>
+</head>
+<body>
+<div class="app">
+  <header>
+    <a class="back-link" href="index.html">&larr; Back to menu</a>
+    <p class="eyebrow">Learn Chinese through story</p>
+    <h1>小美的城市大冒险</h1>
+    <p class="subtitle">Xiaomei's City Adventure — tap the character that shows what she should do next</p>
+  </header>
+
+  <div class="stage">
+    <div class="illustration" id="illustration"></div>
+    <p class="caption" id="caption"></p>
+    <p class="tag" id="tag" style="display:none;"></p>
+    <p class="prompt" id="prompt">What should Xiaomei do?</p>
+    <div class="choices" id="choices"></div>
+    <div class="restart-row" id="restartRow" style="display:none;">
+      <button class="restart" id="restartBtn">重新开始 · Play again</button>
+    </div>
+  </div>
+
+  <div class="trail" id="trail"></div>
+</div>
+
+<script>
+function scene(top, bottom, ground, backdrop, fg){
+  return `<svg viewBox="0 0 400 260" xmlns="http://www.w3.org/2000/svg">
+  <defs><linearGradient id="g1" x1="0" y1="0" x2="0" y2="1">
+  <stop offset="0" stop-color="${top}"/><stop offset="1" stop-color="${bottom}"/>
+  </linearGradient></defs>
+  <rect width="400" height="260" fill="url(#g1)"/>
+  <text x="325" y="95" font-size="90" text-anchor="middle" opacity="0.32">${backdrop}</text>
+  <path d="M0 205 Q100 185 200 208 T400 200 V260 H0 Z" fill="${ground}"/>
+  <text x="150" y="195" font-size="96" text-anchor="middle">${fg}</text>
+  </svg>`;
+}
+
+const svgStart  = scene('#BEE3F8', '#EBF8FF', '#90A4AE', '🏙️', '🧒😟');
+const svgAsk    = scene('#FEEBC8', '#FFFAF0', '#A0785A', '🍊', '👩🧒');
+const svgCry    = scene('#CBD5E0', '#EDF2F7', '#607D8B', '🚦', '👮🧒');
+const svgWalk   = scene('#C4E7F5', '#F0FAFF', '#90A4AE', '🚌', '🗺️');
+
+const svgEnd = `<svg viewBox="0 0 400 220" xmlns="http://www.w3.org/2000/svg">
+<rect width="400" height="220" fill="#EAF1F8"/>
+<circle cx="200" cy="110" r="72" fill="none" stroke="#C05621" stroke-width="6"/>
+<circle cx="200" cy="110" r="58" fill="none" stroke="#C05621" stroke-width="2"/>
+<text x="200" y="130" font-size="70" text-anchor="middle" fill="#C05621" font-family="'Noto Sans SC', sans-serif" font-weight="900">完</text>
+</svg>`;
+
+const story = {
+  start: {
+    bg: svgStart,
+    caption: "Xiaomei was looking at a toy shop window, and when she turned around, her mom was gone! Tall buildings surrounded her. What should she do?",
+    choices: [
+      { char:'问', pinyin:'wèn', meaning:'ask', next:'ask1' },
+      { char:'哭', pinyin:'kū', meaning:'cry', next:'cry1' },
+      { char:'走', pinyin:'zǒu', meaning:'walk', next:'walk1' }
+    ]
+  },
+  ask1: {
+    bg: svgAsk,
+    caption: "Xiaomei asked a friendly auntie at a fruit stand for help. The auntie smiled and asked where she lived.",
+    choices: [
+      { char:'说', pinyin:'shuō', meaning:'say', next:'end_ask_say' },
+      { char:'等', pinyin:'děng', meaning:'wait', next:'end_ask_wait' },
+      { char:'跟', pinyin:'gēn', meaning:'follow', next:'end_ask_follow' }
+    ]
+  },
+  cry1: {
+    bg: svgCry,
+    caption: "A kind policeman noticed Xiaomei crying by a lamppost and crouched down beside her.",
+    choices: [
+      { char:'说', pinyin:'shuō', meaning:'speak', next:'end_cry_say' },
+      { char:'抱', pinyin:'bào', meaning:'hug', next:'end_cry_hug' },
+      { char:'笑', pinyin:'xiào', meaning:'smile', next:'end_cry_smile' }
+    ]
+  },
+  walk1: {
+    bg: svgWalk,
+    caption: "Xiaomei kept walking and found a big map at the bus stop.",
+    choices: [
+      { char:'看', pinyin:'kàn', meaning:'look', next:'end_walk_look' },
+      { char:'问', pinyin:'wèn', meaning:'ask', next:'end_walk_ask' },
+      { char:'读', pinyin:'dú', meaning:'read', next:'end_walk_read' }
+    ]
+  },
+  end_ask_say: { ending:true, bg:svgEnd, caption:"Xiaomei told the auntie her address. The auntie called the police, and soon Xiaomei's mom came running to hug her tight. 团圆了 — reunited!" },
+  end_ask_wait: { ending:true, bg:svgEnd, caption:"Xiaomei waited calmly by the fruit stand. A few minutes later, her worried mom found her right there." },
+  end_ask_follow: { ending:true, bg:svgEnd, caption:"Xiaomei followed the auntie to a nearby police station, where a kind officer helped call her mom." },
+  end_cry_say: { ending:true, bg:svgEnd, caption:"Xiaomei told the policeman her name and her mom's phone number. He called right away, and mom arrived in minutes." },
+  end_cry_hug: { ending:true, bg:svgEnd, caption:"Xiaomei hugged the policeman's arm tightly. He radioed for help, and soon her mom was there, hugging her back." },
+  end_cry_smile: { ending:true, bg:svgEnd, caption:"Xiaomei wiped her tears and smiled bravely. The policeman walked with her, and they spotted mom searching just around the corner." },
+  end_walk_look: { ending:true, bg:svgEnd, caption:"Xiaomei studied the map carefully and found her street. She walked back confidently and found mom waiting at the toy shop." },
+  end_walk_ask: { ending:true, bg:svgEnd, caption:"Xiaomei asked a bus driver for help. He knew the street and pointed the way — right where mom was searching." },
+  end_walk_read: { ending:true, bg:svgEnd, caption:"Xiaomei read the street signs one by one and realized she was close to home. She turned the corner and saw mom!" }
+};
+
+let path = [];
+
+function speak(char){
+  if(!('speechSynthesis' in window)) return;
+  const u = new SpeechSynthesisUtterance(char);
+  u.lang = 'zh-CN';
+  u.rate = 0.85;
+  window.speechSynthesis.cancel();
+  window.speechSynthesis.speak(u);
+}
+
+function render(id, chosen){
+  const scene = story[id];
+  document.getElementById('illustration').innerHTML = scene.bg;
+  document.getElementById('caption').textContent = scene.caption;
+
+  const tag = document.getElementById('tag');
+  if(chosen){
+    tag.style.display = 'inline-flex';
+    tag.textContent = `You chose: ${chosen.char} ${chosen.pinyin} — ${chosen.meaning}`;
+  } else {
+    tag.style.display = 'none';
+  }
+
+  const choicesEl = document.getElementById('choices');
+  const promptEl = document.getElementById('prompt');
+  const restartRow = document.getElementById('restartRow');
+
+  if(scene.ending){
+    choicesEl.innerHTML = '';
+    promptEl.style.display = 'none';
+    restartRow.style.display = 'block';
+  } else {
+    promptEl.style.display = 'block';
+    restartRow.style.display = 'none';
+    choicesEl.innerHTML = '';
+    scene.choices.forEach(choice => {
+      const tile = document.createElement('div');
+      tile.className = 'tile';
+      tile.innerHTML = `
+        <button class="speak" aria-label="Hear pronunciation">&#128266;</button>
+        <span class="hanzi">${choice.char}</span>
+        <span class="pinyin">${choice.pinyin}</span>
+      `;
+      tile.querySelector('.speak').addEventListener('click', (e) => {
+        e.stopPropagation();
+        speak(choice.char);
+      });
+      tile.addEventListener('click', () => {
+        path.push(id);
+        speak(choice.char);
+        render(choice.next, choice);
+      });
+      choicesEl.appendChild(tile);
+    });
+  }
+  renderTrail();
+}
+
+function renderTrail(){
+  const trail = document.getElementById('trail');
+  const total = 3;
+  const done = Math.min(path.length, total);
+  trail.innerHTML = '';
+  for(let i=0;i<total;i++){
+    const dot = document.createElement('span');
+    if(i < done) dot.className = 'done';
+    trail.appendChild(dot);
+  }
+}
+
+document.getElementById('restartBtn').addEventListener('click', () => {
+  path = [];
+  render('start', null);
+});
+
+render('start', null);
+</script>
+</body>
+</html>
