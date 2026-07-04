@@ -352,6 +352,8 @@ footer {
   .demo-layout { grid-template-columns:1fr; }
   .why-layout { grid-template-columns:1fr; }
   .hero-char { font-size:clamp(80px,24vw,140px); }
+  .team-card + .team-card { margin-top: 0; }
+  [style*='grid-template-columns:1fr 1fr'] { grid-template-columns: 1fr !important; }
   footer { flex-direction:column; align-items:flex-start; }
   .moat-table { font-size:12px; }
   .moat-table th, .moat-table td { padding:10px 10px; }
@@ -373,7 +375,10 @@ footer {
   <div class="nav-logo">ATOP<span>AI</span></div>
   <div class="nav-actions">
     <a href="login.html" class="nav-secondary">Access game</a>
-    <a href="#request-access" class="nav-cta">Request access</a>
+    <div class="nav-actions">
+    <a href="login.html" class="nav-secondary">Sign in</a>
+    <a href="login.html" class="nav-cta">Get started →</a>
+  </div>
   </div>
 </nav>
 
@@ -389,8 +394,8 @@ footer {
     ATOP AI adapts to each child, teaches in both languages simultaneously, and tells parents exactly where their kids need help — for less than a cup of coffee a week.
   </p>
   <div class="hero-actions">
-    <a href="#demo" class="btn-primary">Try the demo</a>
-    <a href="#traction" class="btn-secondary">See the numbers</a>
+    <a href="login.html" class="btn-primary">Get started → 开始学习</a>
+    <a href="#demo" class="btn-secondary">Try the demo</a>
   </div>
   <div class="hero-badges">
     <div class="badge"><div class="badge-dot"></div>Ages 5–8</div>
@@ -618,23 +623,43 @@ footer {
       <h2 class="section-h2">Built by someone who lived this</h2>
       <p class="section-sub">Founder-market fit isn't a talking point here — it's the origin story.</p>
     </div>
-    <div class="team-card reveal">
-      <div class="team-avatar">T</div>
-      <div>
-        <div class="team-name">Tina</div>
-        <div class="team-title">Founder &amp; CEO, ATOP AI</div>
-        <div class="team-bio">
-          Software engineer with full-stack + AI background. Chinese immigrant, Bay Area-based, bilingual in Mandarin and English. Built production systems at Sanhua (Flask, PostgreSQL, Docker, AWS, CI/CD). The ATOP AI game engine was built from scratch in under 2 weeks. Previously interviewed at Amazon, Apple, and Airbnb — chose to build instead.
-        </div>
-        <div class="team-tags">
-          <span class="team-tag">Flask + FastAPI</span>
-          <span class="team-tag">PostgreSQL</span>
-          <span class="team-tag">AWS</span>
-          <span class="team-tag">LLM APIs</span>
-          <span class="team-tag">React Native</span>
-          <span class="team-tag">Chinese / English</span>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:48px">
+
+      <div class="team-card reveal" style="margin-top:0">
+        <div class="team-avatar">T</div>
+        <div>
+          <div class="team-name">Tina</div>
+          <div class="team-title">Founder &amp; CEO, ATOP AI</div>
+          <div class="team-bio">
+            Software engineer with full-stack + AI background. Chinese immigrant, Bay Area-based, bilingual in Mandarin and English. Built production systems at Sanhua (Flask, PostgreSQL, Docker, AWS, CI/CD). Spent the last decade building production software systems across the US and China — bringing a rare combination of deep technical skill and lived experience as a Chinese immigrant in America. ATOP AI is a way of giving the next generation a better start.
+          </div>
+          <div class="team-tags">
+            <span class="team-tag">Flask + FastAPI</span>
+            <span class="team-tag">PostgreSQL</span>
+            <span class="team-tag">AWS</span>
+            <span class="team-tag">LLM APIs</span>
+            <span class="team-tag">Mandarin / English</span>
+          </div>
         </div>
       </div>
+
+      <div class="team-card reveal" style="margin-top:0">
+        <div class="team-avatar" style="background:var(--blue,#4A90D9)">V</div>
+        <div>
+          <div class="team-name">Vignesh Chilecampalli</div>
+          <div class="team-title">Founder, CPO &amp; CRO</div>
+          <div class="team-bio">
+            Experienced in platform engineering, BD manager, and product management at various F500 companies, Vignesh leverages his diverse set of work experiences in his capacity as a founder. He has studied Mandarin as a non-native speaker, and is incredibly passionate about making language learning fun and engaging for all.
+          </div>
+          <div class="team-tags">
+            <span class="team-tag">Product</span>
+            <span class="team-tag">BD &amp; Partnerships</span>
+            <span class="team-tag">Platform Engineering</span>
+            <span class="team-tag">Mandarin Learner</span>
+          </div>
+        </div>
+      </div>
+
     </div>
   </div>
 </section>
@@ -700,7 +725,7 @@ async function submitCTA() {
     status.style.color = '#E8543A';
     return;
   }
-  document.querySelector('.cta-submit').disabled = true;
+  window.location.href = 'login.html'; return;
   status.textContent = 'Joining...';
   status.style.color = '#8892A4';
   try {
