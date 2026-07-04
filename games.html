@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>学中文故事 · Learn Chinese Through Story</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700&family=Noto+Sans+SC:wght@700;900&family=ZCOOL+KuaiLe&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper: #F5EFD9;
+    --paper-deep: #EDE2BE;
+    --ink: #2E2115;
+    --ink-soft: #5C4A36;
+    --forest: #2F5233;
+    --gold: #E8A83E;
+    --card-radius: 22px;
+  }
+  *{ box-sizing: border-box; }
+  body{
+    margin:0;
+    min-height:100vh;
+    background:
+      radial-gradient(circle at 15% 8%, rgba(232,168,62,0.18), transparent 45%),
+      radial-gradient(circle at 85% 92%, rgba(47,82,51,0.15), transparent 50%),
+      var(--paper);
+    font-family:'Baloo 2', sans-serif;
+    color: var(--ink);
+    display:flex;
+    justify-content:center;
+    padding: 32px 16px 64px;
+  }
+  .app{ width:100%; max-width: 640px; }
+
+  header{ text-align:center; margin-bottom: 28px; }
+  .eyebrow{
+    font-size:13px; letter-spacing:.14em; text-transform:uppercase;
+    color: var(--forest); font-weight:600; margin:0 0 6px;
+  }
+  h1{
+    font-family:'ZCOOL KuaiLe', 'Baloo 2', sans-serif;
+    font-size: clamp(28px, 7vw, 38px);
+    margin: 0 0 6px;
+    color: #922424;
+  }
+  .subtitle{ margin:0; font-size:15px; color: var(--ink-soft); }
+
+  .grid{
+    display:grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 18px;
+  }
+  .game-card{
+    display:block;
+    text-decoration:none;
+    color: var(--ink);
+    background: var(--paper-deep);
+    border: 3px solid var(--ink);
+    border-radius: var(--card-radius);
+    padding: 22px 16px;
+    text-align:center;
+    box-shadow: 0 6px 0 rgba(46,33,21,0.15);
+    transition: transform .12s ease, box-shadow .12s ease, background .12s ease;
+  }
+  .game-card:hover{
+    transform: translateY(-4px);
+    background: var(--gold);
+  }
+  .game-card:active{
+    transform: translateY(2px);
+    box-shadow: 0 2px 0 rgba(46,33,21,0.15);
+  }
+  .game-card .emoji{
+    font-size: 44px;
+    display:block;
+    margin-bottom: 8px;
+  }
+  .game-card .title-cn{
+    font-family:'ZCOOL KuaiLe', 'Baloo 2', sans-serif;
+    font-size: 19px;
+    display:block;
+    margin-bottom: 4px;
+  }
+  .game-card .title-en{
+    font-size: 12px;
+    color: var(--ink-soft);
+    display:block;
+  }
+
+  @media (max-width:480px){
+    .grid{ grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+<div class="app">
+  <header>
+    <p class="eyebrow">Learn Chinese through story</p>
+    <h1>学中文故事</h1>
+    <p class="subtitle">Pick an adventure — tap the Chinese character that shows what happens next</p>
+  </header>
+
+  <div class="grid">
+    <a class="game-card" href="forest.html">
+      <span class="emoji">🐯</span>
+      <span class="title-cn">小明的森林历险</span>
+      <span class="title-en">Forest Adventure</span>
+    </a>
+    <a class="game-card" href="city.html">
+      <span class="emoji">🏙️</span>
+      <span class="title-cn">小美的城市大冒险</span>
+      <span class="title-en">Lost in the City</span>
+    </a>
+    <a class="game-card" href="doctor.html">
+      <span class="emoji">🩺</span>
+      <span class="title-cn">王医生的一天</span>
+      <span class="title-en">Dr. Wang's Busy Day</span>
+    </a>
+    <a class="game-card" href="cooking.html">
+      <span class="emoji">🍳</span>
+      <span class="title-cn">妈妈做晚饭</span>
+      <span class="title-en">Mom Cooks Dinner</span>
+    </a>
+  </div>
+</div>
+</body>
+</html>
