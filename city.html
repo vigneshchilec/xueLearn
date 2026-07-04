@@ -212,22 +212,99 @@
 </div>
 
 <script>
-function scene(top, bottom, ground, backdrop, fg){
+function person(x, y, s, body, head, extra){
+  return `<g transform="translate(${x},${y}) scale(${s})">
+  <ellipse cx="10" cy="46" rx="16" ry="7" fill="rgba(0,0,0,0.12)"/>
+  <rect x="0" y="18" width="20" height="26" rx="8" fill="${body}"/>
+  <circle cx="10" cy="8" r="12" fill="${head}"/>
+  <rect x="-4" y="24" width="8" height="18" rx="4" fill="${head}"/>
+  <rect x="16" y="24" width="8" height="18" rx="4" fill="${head}"/>
+  ${extra||''}
+  </g>`;
+}
+const hairBob = (c) => `<path d="M-3 -2 Q10 -15 23 -2 L22 8 Q10 -1 -2 8 Z" fill="${c}"/>`;
+const headscarf = (c) => `<path d="M-3 -3 Q10 -16 23 -3 L23 7 Q17 0 10 2 Q3 0 -3 7 Z" fill="${c}"/>`;
+const policeHat = `<rect x="-5" y="-4" width="30" height="4" rx="2" fill="#101B33"/><rect x="-2" y="-11" width="24" height="8" rx="3" fill="#1A2A4A"/><circle cx="10" cy="-7" r="2" fill="#F6E05E"/>`;
+const badge = `<circle cx="15" cy="26" r="2.6" fill="#F6E05E"/>`;
+const apronFruit = `<rect x="2" y="28" width="16" height="16" rx="3" fill="#FFF8E7" opacity="0.92"/><line x1="10" y1="18" x2="10" y2="28" stroke="#FFF8E7" stroke-width="2"/>`;
+
+function citySkyline(){
+  return `<rect x="20" y="120" width="46" height="90" fill="#9FB4C7"/>
+  <rect x="70" y="90" width="54" height="120" fill="#7C93A8"/>
+  <rect x="130" y="130" width="42" height="80" fill="#9FB4C7"/>
+  <rect x="300" y="100" width="50" height="110" fill="#7C93A8"/>
+  <rect x="355" y="125" width="40" height="85" fill="#9FB4C7"/>
+  <g fill="#FFF3B0" opacity="0.85">
+  <rect x="28" y="132" width="8" height="10"/><rect x="44" y="132" width="8" height="10"/>
+  <rect x="28" y="150" width="8" height="10"/><rect x="44" y="150" width="8" height="10"/>
+  <rect x="80" y="102" width="8" height="10"/><rect x="98" y="102" width="8" height="10"/>
+  <rect x="80" y="122" width="8" height="10"/><rect x="98" y="122" width="8" height="10"/>
+  <rect x="140" y="142" width="8" height="10"/><rect x="156" y="142" width="8" height="10"/>
+  <rect x="310" y="112" width="8" height="10"/><rect x="330" y="112" width="8" height="10"/>
+  <rect x="310" y="132" width="8" height="10"/><rect x="330" y="132" width="8" height="10"/>
+  <rect x="365" y="137" width="8" height="10"/><rect x="380" y="137" width="8" height="10"/>
+  </g>`;
+}
+
+function cityScene(propsFront){
   return `<svg viewBox="0 0 400 260" xmlns="http://www.w3.org/2000/svg">
-  <defs><linearGradient id="g1" x1="0" y1="0" x2="0" y2="1">
-  <stop offset="0" stop-color="${top}"/><stop offset="1" stop-color="${bottom}"/>
-  </linearGradient></defs>
-  <rect width="400" height="260" fill="url(#g1)"/>
-  <text x="325" y="95" font-size="90" text-anchor="middle" opacity="0.32">${backdrop}</text>
-  <path d="M0 205 Q100 185 200 208 T400 200 V260 H0 Z" fill="${ground}"/>
-  <text x="150" y="195" font-size="96" text-anchor="middle">${fg}</text>
+  <rect width="400" height="260" fill="#BEE3F8"/>
+  <circle cx="340" cy="46" r="24" fill="#F6E05E"/>
+  ${citySkyline()}
+  <path d="M0 205 Q100 185 200 208 T400 200 V260 H0 Z" fill="#8492A6"/>
+  <path d="M0 222 Q120 205 220 224 T400 216 V260 H0 Z" fill="#69788C"/>
+  ${propsFront||''}
   </svg>`;
 }
 
-const svgStart  = scene('#BEE3F8', '#EBF8FF', '#90A4AE', '🏙️', '🧒😟');
-const svgAsk    = scene('#FEEBC8', '#FFFAF0', '#A0785A', '🍊', '👩🧒');
-const svgCry    = scene('#CBD5E0', '#EDF2F7', '#607D8B', '🚦', '👮🧒');
-const svgWalk   = scene('#C4E7F5', '#F0FAFF', '#90A4AE', '🚌', '🗺️');
+const svgStart = cityScene(`
+  <g transform="translate(230,118)">
+    <rect x="0" y="0" width="90" height="72" rx="6" fill="#FFFFFF" stroke="#4A5568" stroke-width="3"/>
+    <line x1="45" y1="0" x2="45" y2="72" stroke="#4A5568" stroke-width="3"/>
+    <circle cx="22" cy="42" r="14" fill="#F6AD55"/>
+    <rect x="58" y="24" width="24" height="30" rx="4" fill="#68D391"/>
+  </g>
+  ${person(120, 150, 1.5, '#FBB6CE', '#F2C9A0', hairBob('#5C3A21'))}
+`);
+
+const svgAsk = cityScene(`
+  <g transform="translate(230,158)">
+    <rect x="0" y="30" width="70" height="28" rx="4" fill="#A9772E"/>
+    <circle cx="14" cy="24" r="9" fill="#F56565"/>
+    <circle cx="32" cy="18" r="9" fill="#F6AD55"/>
+    <circle cx="50" cy="24" r="9" fill="#F56565"/>
+    <circle cx="60" cy="12" r="7" fill="#68D391"/>
+  </g>
+  ${person(110, 158, 1.25, '#FBB6CE', '#F2C9A0', hairBob('#5C3A21'))}
+  ${person(195, 138, 1.55, '#ED8936', '#F2C9A0', headscarf('#C05621') + apronFruit)}
+`);
+
+const svgCry = cityScene(`
+  <g transform="translate(70,80)">
+    <rect x="-3" y="0" width="6" height="120" fill="#4A5568"/>
+    <circle cx="0" cy="-6" r="14" fill="#FFF3B0"/>
+  </g>
+  ${person(130, 162, 1.2, '#FBB6CE', '#F2C9A0', hairBob('#5C3A21'))}
+  ${person(210, 130, 1.6, '#2B4C7E', '#F2C9A0', policeHat + badge)}
+`);
+
+const svgWalk = cityScene(`
+  <g transform="translate(250,140)">
+    <rect x="0" y="0" width="120" height="55" rx="10" fill="#63B3ED"/>
+    <rect x="10" y="10" width="30" height="20" rx="3" fill="#EBF8FF"/>
+    <rect x="46" y="10" width="30" height="20" rx="3" fill="#EBF8FF"/>
+    <rect x="82" y="10" width="30" height="20" rx="3" fill="#EBF8FF"/>
+    <circle cx="24" cy="58" r="10" fill="#2D3748"/>
+    <circle cx="96" cy="58" r="10" fill="#2D3748"/>
+  </g>
+  <g transform="translate(70,110)">
+    <rect x="-3" y="30" width="6" height="90" fill="#718096"/>
+    <rect x="-40" y="0" width="80" height="60" rx="6" fill="#FFFFFF" stroke="#4A5568" stroke-width="3"/>
+    <path d="M-30 10 L30 50 M-30 50 L30 10" stroke="#63B3ED" stroke-width="3"/>
+    <circle cx="0" cy="30" r="4" fill="#F56565"/>
+  </g>
+  ${person(120, 158, 1.35, '#FBB6CE', '#F2C9A0', hairBob('#5C3A21'))}
+`);
 
 const svgEnd = `<svg viewBox="0 0 400 220" xmlns="http://www.w3.org/2000/svg">
 <rect width="400" height="220" fill="#EAF1F8"/>

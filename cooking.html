@@ -212,22 +212,82 @@
 </div>
 
 <script>
-function scene(top, bottom, ground, backdrop, fg){
+function person(x, y, s, body, head, extra){
+  return `<g transform="translate(${x},${y}) scale(${s})">
+  <ellipse cx="10" cy="46" rx="16" ry="7" fill="rgba(0,0,0,0.12)"/>
+  <rect x="0" y="18" width="20" height="26" rx="8" fill="${body}"/>
+  <circle cx="10" cy="8" r="12" fill="${head}"/>
+  <rect x="-4" y="24" width="8" height="18" rx="4" fill="${head}"/>
+  <rect x="16" y="24" width="8" height="18" rx="4" fill="${head}"/>
+  ${extra||''}
+  </g>`;
+}
+const hairBun = (c) => `<circle cx="10" cy="-3" r="5" fill="${c}"/>`;
+const apronBib = `<rect x="3" y="27" width="14" height="17" rx="3" fill="#FFF8E7"/><line x1="10" y1="18" x2="10" y2="27" stroke="#FFF8E7" stroke-width="2"/>`;
+
+function kitchenBase(propsBack, propsFront){
   return `<svg viewBox="0 0 400 260" xmlns="http://www.w3.org/2000/svg">
-  <defs><linearGradient id="g1" x1="0" y1="0" x2="0" y2="1">
-  <stop offset="0" stop-color="${top}"/><stop offset="1" stop-color="${bottom}"/>
-  </linearGradient></defs>
-  <rect width="400" height="260" fill="url(#g1)"/>
-  <text x="325" y="95" font-size="90" text-anchor="middle" opacity="0.32">${backdrop}</text>
-  <path d="M0 205 Q100 185 200 208 T400 200 V260 H0 Z" fill="${ground}"/>
-  <text x="150" y="195" font-size="96" text-anchor="middle">${fg}</text>
+  <rect width="400" height="260" fill="#FFF5E6"/>
+  <rect x="0" y="0" width="400" height="150" fill="#FDEBD3"/>
+  <rect x="20" y="20" width="80" height="60" rx="6" fill="#E8A83E" stroke="#A9772E" stroke-width="3"/>
+  <rect x="110" y="20" width="80" height="60" rx="6" fill="#E8A83E" stroke="#A9772E" stroke-width="3"/>
+  <rect x="300" y="20" width="80" height="60" rx="6" fill="#E8A83E" stroke="#A9772E" stroke-width="3"/>
+  ${propsBack||''}
+  <rect x="0" y="150" width="400" height="20" fill="#C68642"/>
+  <rect x="0" y="170" width="400" height="90" fill="#8B5A2B"/>
+  ${propsFront||''}
   </svg>`;
 }
 
-const svgStart = scene('#FBD38D', '#FFF5E6', '#C68642', '🍽️', '👩🤔');
-const svgBuy   = scene('#FADFA1', '#FFF8EC', '#C68642', '🏪', '👩🛒');
-const svgWash  = scene('#D9F2E6', '#F2FFF9', '#8FAE4E', '🚰', '👩🥬');
-const svgAsk   = scene('#FFE3D3', '#FFF6F0', '#C68642', '👨‍👩‍👧‍👦', '👩💬');
+const stoveProp = `<g transform="translate(230,100)">
+  <rect x="0" y="0" width="70" height="34" rx="4" fill="#4A5568"/>
+  <circle cx="16" cy="10" r="6" fill="#2D3748"/>
+  <circle cx="46" cy="10" r="6" fill="#2D3748"/>
+  <circle cx="16" cy="24" r="6" fill="#2D3748"/>
+  <circle cx="46" cy="24" r="6" fill="#2D3748"/>
+</g>`;
+
+const svgStart = kitchenBase(``, `
+  <g transform="translate(250,60)">
+    <rect x="0" y="0" width="70" height="130" rx="8" fill="#E0F2FE" stroke="#4A5568" stroke-width="3"/>
+    <line x1="0" y1="45" x2="70" y2="45" stroke="#4A5568" stroke-width="2"/>
+    <rect x="60" y="10" width="6" height="20" rx="3" fill="#4A5568"/>
+    <rect x="60" y="55" width="6" height="20" rx="3" fill="#4A5568"/>
+  </g>
+  ${person(120, 150, 1.5, '#D64545', '#F2C9A0', hairBun('#4A3222') + apronBib)}
+`);
+
+const svgBuy = kitchenBase(``, `
+  <g transform="translate(190,158)">
+    <rect x="0" y="28" width="90" height="30" rx="4" fill="#A9772E"/>
+    <circle cx="14" cy="22" r="9" fill="#E53E3E"/>
+    <circle cx="34" cy="18" r="9" fill="#68D391"/>
+    <circle cx="54" cy="22" r="9" fill="#F6AD55"/>
+    <path d="M74 32 L82 8 L90 32 Z" fill="#ED8936"/>
+  </g>
+  ${person(110, 150, 1.5, '#D64545', '#F2C9A0', hairBun('#4A3222') + apronBib)}
+`);
+
+const svgWash = kitchenBase(stoveProp, `
+  <g transform="translate(220,150)">
+    <rect x="0" y="20" width="80" height="30" rx="8" fill="#CBD5E0" stroke="#4A5568" stroke-width="2"/>
+    <path d="M40 -4 Q40 -14 55 -14 L55 8" stroke="#4A5568" stroke-width="4" fill="none"/>
+    <circle cx="55" cy="12" r="3" fill="#63B3ED"/>
+    <circle cx="53" cy="20" r="2" fill="#63B3ED"/>
+  </g>
+  ${person(120, 150, 1.5, '#D64545', '#F2C9A0', hairBun('#4A3222') + apronBib)}
+`);
+
+const svgAsk = kitchenBase(``, `
+  <g transform="translate(230,155)">
+    <rect x="0" y="10" width="100" height="8" fill="#A9772E"/>
+    <rect x="4" y="18" width="6" height="30" fill="#8B5A2B"/>
+    <rect x="90" y="18" width="6" height="30" fill="#8B5A2B"/>
+  </g>
+  ${person(240, 130, 1.05, '#63B3ED', '#F2C9A0', '')}
+  ${person(275, 132, 1.0, '#F6AD55', '#F2C9A0', '')}
+  ${person(130, 150, 1.5, '#D64545', '#F2C9A0', hairBun('#4A3222') + apronBib)}
+`);
 
 const svgEnd = `<svg viewBox="0 0 400 220" xmlns="http://www.w3.org/2000/svg">
 <rect width="400" height="220" fill="#FDF3E7"/>
