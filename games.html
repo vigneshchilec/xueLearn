@@ -15,6 +15,8 @@
     --ink-soft: #5C4A36;
     --forest: #2F5233;
     --gold: #E8A83E;
+    --lantern: #C13B3B;
+    --lantern-deep: #922424;
     --card-radius: 22px;
   }
   *{ box-sizing: border-box; }
@@ -91,38 +93,341 @@
   @media (max-width:480px){
     .grid{ grid-template-columns: 1fr; }
   }
+
+  .create-card{
+    margin-top: 26px;
+    background: var(--paper-deep);
+    border: 3px solid var(--ink);
+    border-radius: var(--card-radius);
+    padding: 22px 20px;
+    text-align:center;
+    box-shadow: 0 6px 0 rgba(46,33,21,0.15);
+  }
+  .create-eyebrow{
+    font-size:13px; letter-spacing:.12em; text-transform:uppercase;
+    color: var(--forest); font-weight:600; margin:0 0 4px;
+  }
+  .create-title{
+    font-family:'ZCOOL KuaiLe', 'Baloo 2', sans-serif;
+    font-size: 22px; margin: 0 0 6px; color: var(--lantern-deep);
+  }
+  .create-sub{ margin:0 0 16px; font-size:14px; color: var(--ink-soft); }
+  .create-row{
+    display:flex; gap:10px; flex-wrap:wrap; justify-content:center;
+  }
+  .create-row input{
+    flex:1; min-width:220px;
+    font-family:'Baloo 2', sans-serif;
+    font-size:15px;
+    padding: 12px 16px;
+    border: 3px solid var(--ink);
+    border-radius: 999px;
+    background: var(--paper);
+    color: var(--ink);
+  }
+  .create-row input:focus{ outline: none; border-color: var(--forest); }
+  .create-row button{
+    font-family:'Baloo 2', sans-serif;
+    font-weight:700;
+    font-size:15px;
+    background: var(--lantern);
+    color:#fff;
+    border:3px solid var(--ink);
+    border-radius: 999px;
+    padding: 12px 24px;
+    cursor:pointer;
+    box-shadow: 0 5px 0 rgba(46,33,21,0.25);
+  }
+  .create-row button:hover{ background: var(--lantern-deep); }
+  .create-row button:active{ transform: translateY(2px); box-shadow: 0 2px 0 rgba(46,33,21,0.25); }
+  .create-row button:disabled{ opacity:0.6; cursor:default; }
+  .create-error{
+    margin: 12px 4px 0; font-size:13px; color: var(--lantern-deep); font-weight:600;
+  }
+
+  /* ── Story player (for generated games) ── */
+  #playerView{ display:none; }
+  .player-back{
+    display:inline-block; margin-bottom:10px; font-size:13px; font-weight:600;
+    color: var(--ink-soft); text-decoration:none; cursor:pointer; background:none; border:none; padding:0;
+    font-family:'Baloo 2', sans-serif;
+  }
+  .player-back:hover{ color: var(--lantern-deep); }
+  .stage{
+    background: var(--paper-deep);
+    border: 3px solid var(--ink);
+    border-radius: var(--card-radius);
+    padding: 14px;
+    box-shadow: 0 8px 0 rgba(46,33,21,0.12);
+  }
+  .illustration{ width:100%; display:block; border-radius:14px; overflow:hidden; background:#fff; }
+  .illustration svg{ width:100%; height:auto; display:block; }
+  .caption{ margin:16px 4px 4px; font-size:16px; line-height:1.55; color: var(--ink); }
+  .tag{
+    display:inline-flex; align-items:center; gap:6px; margin:10px 4px 0;
+    padding:5px 12px; background: rgba(193,59,59,0.1); color: var(--lantern-deep);
+    border-radius:999px; font-size:13px; font-weight:600;
+  }
+  .prompt{ margin:20px 4px 10px; font-size:14px; color: var(--forest); font-weight:600; }
+  .choices{ display:flex; gap:14px; flex-wrap:wrap; justify-content:center; margin-top:6px; }
+  .tile{
+    position:relative; width:150px; background: var(--paper); border:3px solid var(--ink);
+    border-radius:18px; padding:14px 10px 12px; text-align:center; cursor:pointer;
+    transition: transform .12s ease, background .12s ease, box-shadow .12s ease;
+    box-shadow: 0 5px 0 rgba(46,33,21,0.18);
+  }
+  .tile:hover{ background: var(--gold); transform: translateY(-3px); }
+  .tile:active{ transform: translateY(2px); box-shadow: 0 2px 0 rgba(46,33,21,0.18); }
+  .tile .hanzi{ font-family:'Noto Sans SC', sans-serif; font-weight:900; font-size:44px; line-height:1; display:block; color: var(--ink); }
+  .tile .pinyin{ display:block; margin-top:8px; font-size:13px; color: var(--ink-soft); font-weight:600; }
+  .tile .speak{
+    position:absolute; top:6px; right:6px; width:26px; height:26px; border-radius:50%;
+    border:none; background: rgba(47,82,51,0.12); color: var(--forest); font-size:13px;
+    cursor:pointer; display:flex; align-items:center; justify-content:center;
+  }
+  .tile .speak:hover{ background: var(--forest); color:#fff; }
+  .restart-row{ text-align:center; margin-top:18px; }
+  .restart{
+    font-family:'Baloo 2', sans-serif; font-weight:700; font-size:15px;
+    background: var(--lantern); color:#fff; border:3px solid var(--ink); border-radius:999px;
+    padding:10px 26px; cursor:pointer; box-shadow: 0 5px 0 rgba(46,33,21,0.25);
+  }
+  .restart:hover{ background: var(--lantern-deep); }
+  .restart:active{ transform: translateY(2px); box-shadow: 0 2px 0 rgba(46,33,21,0.25); }
+  .trail{ display:flex; gap:6px; justify-content:center; margin-top:22px; }
+  .trail span{ width:8px; height:8px; border-radius:50%; background: rgba(46,33,21,0.18); }
+  .trail span.done{ background: var(--forest); }
+
+  @media (max-width:420px){
+    .tile{ width:30%; padding:10px 6px 10px; }
+    .tile .hanzi{ font-size:32px; }
+    .tile .pinyin{ font-size:11px; }
+  }
 </style>
 </head>
 <body>
 <div class="app">
-  <header>
-    <p class="eyebrow">Learn Chinese through story</p>
-    <h1>学中文故事</h1>
-    <p class="subtitle">Pick an adventure — tap the Chinese character that shows what happens next</p>
-  </header>
+  <div id="menuView">
+    <header>
+      <p class="eyebrow">Learn Chinese through story</p>
+      <h1>学中文故事</h1>
+      <p class="subtitle">Pick an adventure — tap the Chinese character that shows what happens next</p>
+    </header>
 
-  <div class="grid">
-    <a class="game-card" href="forest.html">
-      <span class="emoji">🐯</span>
-      <span class="title-cn">小明的森林历险</span>
-      <span class="title-en">Forest Adventure</span>
-    </a>
-    <a class="game-card" href="city.html">
-      <span class="emoji">🏙️</span>
-      <span class="title-cn">小美的城市大冒险</span>
-      <span class="title-en">Lost in the City</span>
-    </a>
-    <a class="game-card" href="doctor.html">
-      <span class="emoji">🩺</span>
-      <span class="title-cn">王医生的一天</span>
-      <span class="title-en">Dr. Wang's Busy Day</span>
-    </a>
-    <a class="game-card" href="cooking.html">
-      <span class="emoji">🍳</span>
-      <span class="title-cn">妈妈做晚饭</span>
-      <span class="title-en">Mom Cooks Dinner</span>
-    </a>
+    <div class="grid">
+      <a class="game-card" href="forest.html">
+        <span class="emoji">🐯</span>
+        <span class="title-cn">小明的森林历险</span>
+        <span class="title-en">Forest Adventure</span>
+      </a>
+      <a class="game-card" href="city.html">
+        <span class="emoji">🏙️</span>
+        <span class="title-cn">小美的城市大冒险</span>
+        <span class="title-en">Lost in the City</span>
+      </a>
+      <a class="game-card" href="doctor.html">
+        <span class="emoji">🩺</span>
+        <span class="title-cn">王医生的一天</span>
+        <span class="title-en">Dr. Wang's Busy Day</span>
+      </a>
+      <a class="game-card" href="cooking.html">
+        <span class="emoji">🍳</span>
+        <span class="title-cn">妈妈做晚饭</span>
+        <span class="title-en">Mom Cooks Dinner</span>
+      </a>
+    </div>
+
+    <div class="create-card">
+      <p class="create-eyebrow">Or make your own</p>
+      <h2 class="create-title">✨ Create a custom adventure</h2>
+      <p class="create-sub">Type any idea and we'll turn it into a tap-to-choose Chinese story.</p>
+      <div class="create-row">
+        <input type="text" id="topicInput" placeholder="e.g. a dragon who is afraid of thunder" maxlength="200">
+        <button id="createBtn">Create game</button>
+      </div>
+      <p class="create-error" id="createError" style="display:none;"></p>
+    </div>
+  </div>
+
+  <div id="playerView">
+    <header>
+      <button class="player-back" id="playerBackBtn">&larr; Back to menu</button>
+      <p class="eyebrow">Learn Chinese through story</p>
+      <h1 id="playerTitleCn">学中文故事</h1>
+      <p class="subtitle" id="playerTitleEn">Tap the character that shows what happens next</p>
+    </header>
+
+    <div class="stage">
+      <div class="illustration" id="playerIllustration"></div>
+      <p class="caption" id="playerCaption"></p>
+      <p class="tag" id="playerTag" style="display:none;"></p>
+      <p class="prompt" id="playerPrompt">What happens next?</p>
+      <div class="choices" id="playerChoices"></div>
+      <div class="restart-row" id="playerRestartRow" style="display:none;">
+        <button class="restart" id="playerRestartBtn">重新开始 · Play again</button>
+      </div>
+    </div>
+
+    <div class="trail" id="playerTrail"></div>
   </div>
 </div>
+
+<script>
+const API_BASE = 'http://localhost:5000'; // TODO: replace with your deployed Railway URL
+
+let customStory = null;
+let path = [];
+let sceneCount = 0;
+
+const KEYWORD_PALETTE = [
+  ['#FDE8D0', '#C05621'], ['#D9F2E6', '#276749'], ['#EAF1F8', '#2B6CB0'],
+  ['#FBE1E7', '#B23A5C'], ['#E9E3FB', '#553C9A'], ['#FFF3D6', '#B7791F']
+];
+
+function keywordIllustration(keyword, seedIndex){
+  const [bg, fg] = KEYWORD_PALETTE[seedIndex % KEYWORD_PALETTE.length];
+  return `<svg viewBox="0 0 400 260" xmlns="http://www.w3.org/2000/svg">
+  <rect width="400" height="260" fill="${bg}"/>
+  <circle cx="200" cy="130" r="78" fill="none" stroke="${fg}" stroke-width="6"/>
+  <circle cx="200" cy="130" r="64" fill="none" stroke="${fg}" stroke-width="2"/>
+  <text x="200" y="152" font-size="76" text-anchor="middle" fill="${fg}" font-family="'Noto Sans SC', sans-serif" font-weight="900">${keyword || '学'}</text>
+  </svg>`;
+}
+
+function speakCustom(char){
+  if(!('speechSynthesis' in window)) return;
+  const u = new SpeechSynthesisUtterance(char);
+  u.lang = 'zh-CN';
+  u.rate = 0.85;
+  window.speechSynthesis.cancel();
+  window.speechSynthesis.speak(u);
+}
+
+function renderCustom(id, chosen){
+  const scene = customStory.scenes[id];
+  document.getElementById('playerIllustration').innerHTML = keywordIllustration(scene.keyword, sceneCount++);
+  document.getElementById('playerCaption').textContent = scene.caption;
+
+  const tag = document.getElementById('playerTag');
+  if(chosen){
+    tag.style.display = 'inline-flex';
+    tag.textContent = `You chose: ${chosen.char} ${chosen.pinyin} — ${chosen.meaning}`;
+  } else {
+    tag.style.display = 'none';
+  }
+
+  const choicesEl = document.getElementById('playerChoices');
+  const promptEl = document.getElementById('playerPrompt');
+  const restartRow = document.getElementById('playerRestartRow');
+  const isEnding = !scene.choices;
+
+  if(isEnding){
+    choicesEl.innerHTML = '';
+    promptEl.style.display = 'none';
+    restartRow.style.display = 'block';
+  } else {
+    promptEl.style.display = 'block';
+    restartRow.style.display = 'none';
+    choicesEl.innerHTML = '';
+    scene.choices.forEach(choice => {
+      const tile = document.createElement('div');
+      tile.className = 'tile';
+      tile.innerHTML = `
+        <button class="speak" aria-label="Hear pronunciation">&#128266;</button>
+        <span class="hanzi">${choice.char}</span>
+        <span class="pinyin">${choice.pinyin}</span>
+      `;
+      tile.querySelector('.speak').addEventListener('click', (e) => {
+        e.stopPropagation();
+        speakCustom(choice.char);
+      });
+      tile.addEventListener('click', () => {
+        path.push(id);
+        speakCustom(choice.char);
+        renderCustom(choice.next, choice);
+      });
+      choicesEl.appendChild(tile);
+    });
+  }
+  renderCustomTrail();
+}
+
+function renderCustomTrail(){
+  const trail = document.getElementById('playerTrail');
+  const total = 3;
+  const done = Math.min(path.length, total);
+  trail.innerHTML = '';
+  for(let i=0;i<total;i++){
+    const dot = document.createElement('span');
+    if(i < done) dot.className = 'done';
+    trail.appendChild(dot);
+  }
+}
+
+function showPlayer(){
+  document.getElementById('menuView').style.display = 'none';
+  document.getElementById('playerView').style.display = 'block';
+  document.getElementById('playerTitleCn').textContent = customStory.title_cn || '我的故事';
+  document.getElementById('playerTitleEn').textContent = customStory.title_en || 'My custom adventure';
+}
+
+function hidePlayer(){
+  document.getElementById('playerView').style.display = 'none';
+  document.getElementById('menuView').style.display = '';
+  window.speechSynthesis && window.speechSynthesis.cancel();
+}
+
+async function createGame(){
+  const input = document.getElementById('topicInput');
+  const errorEl = document.getElementById('createError');
+  const btn = document.getElementById('createBtn');
+  const topic = input.value.trim();
+
+  errorEl.style.display = 'none';
+  if(!topic){
+    errorEl.textContent = 'Type an idea first!';
+    errorEl.style.display = 'block';
+    return;
+  }
+
+  btn.disabled = true;
+  btn.textContent = 'Creating…';
+
+  try {
+    const res = await fetch(`${API_BASE}/api/generate-story`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ topic })
+    });
+    const data = await res.json();
+    if(!data.ok) throw new Error(data.error || 'Something went wrong');
+
+    customStory = data.story;
+    path = [];
+    sceneCount = 0;
+    showPlayer();
+    renderCustom('start', null);
+  } catch(err){
+    errorEl.textContent = (err instanceof TypeError)
+      ? "Couldn't reach the story maker. Please try again in a moment."
+      : (err.message || 'Something went wrong. Try again!');
+    errorEl.style.display = 'block';
+  } finally {
+    btn.disabled = false;
+    btn.textContent = 'Create game';
+  }
+}
+
+document.getElementById('createBtn').addEventListener('click', createGame);
+document.getElementById('topicInput').addEventListener('keydown', (e) => {
+  if(e.key === 'Enter') createGame();
+});
+document.getElementById('playerRestartBtn').addEventListener('click', () => {
+  path = [];
+  sceneCount = 0;
+  renderCustom('start', null);
+});
+document.getElementById('playerBackBtn').addEventListener('click', hidePlayer);
+</script>
 </body>
 </html>
