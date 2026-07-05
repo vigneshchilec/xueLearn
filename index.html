@@ -649,7 +649,7 @@ footer {
           <div class="team-name">Vignesh Chilecampalli</div>
           <div class="team-title">Founder, CPO &amp; CRO</div>
           <div class="team-bio">
-            Experienced in platform engineering, BD manager, and product management at various F500 companies, Vignesh leverages his diverse set of work experiences in his capacity as a founder. He has studied Mandarin as a non-native speaker, and is incredibly passionate about making language learning fun and engaging for all.
+            Vignesh brings extensive experience in platform engineering, business development, and product management from various Fortune 500 companies. He has studied Mandarin as a non-native speaker and understands firsthand the joy and challenge of learning Chinese — making him deeply passionate about building tools that make language learning fun and engaging for all children.
           </div>
           <div class="team-tags">
             <span class="team-tag">Product</span>
@@ -729,7 +729,7 @@ async function submitCTA() {
   status.textContent = 'Joining...';
   status.style.color = '#8892A4';
   try {
-    const res = await fetch('https://web-production-9ad71.up.railway.app/api/waitlist', {
+    const res = await fetch('https://atop-backend.onrender.com/api/waitlist', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ email: email, source: 'landing_page' })

@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ATOP AI — Choose Activity</title>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --pink:#FF4D6D;--orange:#FF9F1C;--teal:#2EC4B6;--purple:#7B2FBE;
+  --pink-l:#FFF0F3;--orange-l:#FFF8EC;--teal-l:#E8FAFA;--purple-l:#F5EEFF;
+  --text:#1A1A2E;--muted:#6B7280;--white:#FFFFFF;--bg:#FAFAFA;--border:#E5E7EB;
+}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",system-ui,sans-serif;background:var(--bg);color:var(--text);min-height:100vh}
+.nav{background:var(--white);border-bottom:2px solid var(--border);padding:12px 24px;display:flex;align-items:center;justify-content:space-between;box-shadow:0 2px 8px rgba(0,0,0,0.04)}
+.nav-logo{font-size:17px;font-weight:800;letter-spacing:-0.5px}.nav-logo span{color:var(--pink)}
+.nav-right{display:flex;align-items:center;gap:10px}
+.nav-user{font-size:13px;color:var(--muted)}
+.nav-signout{font-size:13px;color:var(--muted);cursor:pointer;border:1.5px solid var(--border);border-radius:99px;padding:5px 12px;background:transparent;font-family:inherit;transition:all .15s}
+.nav-signout:hover{color:var(--text);border-color:var(--pink)}
+.main{max-width:600px;margin:0 auto;padding:40px 20px}
+.greeting{font-size:26px;font-weight:800;margin-bottom:6px;color:var(--text)}
+.greeting span{color:var(--orange)}
+.sub{font-size:15px;color:var(--muted);margin-bottom:32px}
+.child-row{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:32px}
+.child-pill{display:flex;align-items:center;gap:8px;padding:8px 16px;border-radius:99px;border:2px solid var(--border);background:var(--white);cursor:pointer;transition:all .15s;font-size:14px;font-weight:600;color:var(--muted)}
+.child-pill.active{background:var(--pink-l);border-color:var(--pink);color:var(--pink)}
+.child-pill:hover{border-color:var(--pink);color:var(--pink)}
+.child-avatar{width:22px;height:22px;border-radius:50%;background:var(--pink);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:800;color:#fff;flex-shrink:0}
+.add-child{padding:8px 14px;border-radius:99px;border:2px dashed var(--border);background:transparent;color:var(--muted);cursor:pointer;font-size:13px;font-family:inherit;transition:all .15s}
+.add-child:hover{border-color:var(--teal);color:var(--teal)}
+.section-label{font-size:11px;font-weight:700;color:var(--muted);letter-spacing:.08em;text-transform:uppercase;margin-bottom:14px}
+.activities{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:32px}
+.activity-card{background:var(--white);border:2px solid var(--border);border-radius:20px;padding:28px 24px;cursor:pointer;transition:all .2s;text-decoration:none;display:block}
+.activity-card:hover{transform:translateY(-4px);box-shadow:0 12px 32px rgba(0,0,0,0.1)}
+.activity-card.quiz:hover{border-color:var(--orange)}
+.activity-card.story:hover{border-color:var(--purple)}
+.activity-emoji{font-size:40px;margin-bottom:14px}
+.activity-name{font-size:18px;font-weight:800;margin-bottom:6px;color:var(--text)}
+.activity-desc{font-size:13px;color:var(--muted);line-height:1.6;margin-bottom:14px}
+.activity-tag{display:inline-block;font-size:11px;font-weight:700;padding:4px 12px;border-radius:99px}
+.tag-orange{background:var(--orange-l);color:var(--orange)}
+.tag-purple{background:var(--purple-l);color:var(--purple)}
+.activity-chars{font-size:28px;font-family:serif;font-weight:900;margin-top:12px;letter-spacing:4px}
+.streak-bar{background:var(--white);border:2px solid var(--border);border-radius:16px;padding:16px 20px;display:flex;align-items:center;gap:16px}
+.streak-emoji{font-size:28px}
+.streak-text{flex:1}
+.streak-title{font-size:14px;font-weight:700;color:var(--text)}
+.streak-sub{font-size:12px;color:var(--muted);margin-top:2px}
+.streak-num{font-size:24px;font-weight:800;color:var(--orange)}
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.4);display:flex;align-items:center;justify-content:center;z-index:100;padding:20px}
+.modal{background:var(--white);border:2px solid var(--border);border-radius:16px;padding:28px;width:100%;max-width:360px}
+.modal-title{font-size:18px;font-weight:800;margin-bottom:6px;color:var(--text)}
+.modal-sub{font-size:13px;color:var(--muted);margin-bottom:20px}
+.modal-field{margin-bottom:14px}
+.modal-field label{display:block;font-size:11px;font-weight:700;color:var(--muted);margin-bottom:6px;letter-spacing:.06em;text-transform:uppercase}
+.modal-field input,.modal-field select{width:100%;padding:11px 14px;background:var(--bg);border:1.5px solid var(--border);border-radius:10px;color:var(--text);font-size:14px;outline:none;font-family:inherit}
+.modal-field input:focus,.modal-field select:focus{border-color:var(--teal)}
+.modal-btns{display:flex;gap:10px;margin-top:20px}
+.modal-cancel{flex:1;padding:11px;border-radius:10px;background:transparent;border:1.5px solid var(--border);color:var(--muted);cursor:pointer;font-size:14px;font-family:inherit}
+.modal-save{flex:2;padding:11px;border-radius:10px;background:var(--teal);border:none;color:#fff;cursor:pointer;font-size:14px;font-weight:700;font-family:inherit}
+@media(max-width:500px){.activities{grid-template-columns:1fr}.activity-card{padding:20px 18px}}
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-logo">ATOP<span>AI</span></div>
+  <div class="nav-right">
+    <span class="nav-user" id="nav-user"></span>
+    <button class="nav-signout" onclick="signOut()">Sign out</button>
+  </div>
+</nav>
+
+<div class="main">
+  <div class="greeting">Ready to learn, <span id="child-name-display">friend</span>! 🎉</div>
+  <div class="sub">Pick an activity to start today's session · 选择今天的学习活动</div>
+
+  <!-- Child selector -->
+  <div class="child-row" id="child-row"></div>
+
+  <!-- Activities -->
+  <div class="section-label">What would you like to do? 今天学什么？</div>
+  <div class="activities">
+    <a class="activity-card quiz" href="app.html">
+      <div class="activity-emoji">🃏</div>
+      <div class="activity-name">Character Quiz</div>
+      <div class="activity-desc">Match Chinese characters to their meanings through pictures and fill-in-the-blank games.</div>
+      <span class="activity-tag tag-orange">图画测验</span>
+      <div class="activity-chars">日 月 山 水</div>
+    </a>
+    <a class="activity-card story" href="index.html#story">
+      <div class="activity-emoji">📖</div>
+      <div class="activity-name">Story Adventure</div>
+      <div class="activity-desc">Learn Chinese through interactive bilingual stories. Tap characters to shape what happens next.</div>
+      <span class="activity-tag tag-purple">互动故事</span>
+      <div class="activity-chars">学中文故事</div>
+    </a>
+  </div>
+
+  <!-- Streak -->
+  <div class="streak-bar">
+    <div class="streak-emoji">🔥</div>
+    <div class="streak-text">
+      <div class="streak-title">Keep your streak going!</div>
+      <div class="streak-sub">每天学习，坚持就是胜利！</div>
+    </div>
+    <div class="streak-num" id="streak-num">—</div>
+  </div>
+</div>
+
+<!-- Add child modal -->
+<div class="modal-overlay" id="modal" style="display:none" onclick="if(event.target===this)hideModal()">
+  <div class="modal">
+    <div class="modal-title">Add a child 添加孩子</div>
+    <div class="modal-sub">You can switch between children anytime.</div>
+    <div class="modal-field"><label>Child's name</label><input id="child-name-input" type="text" placeholder="e.g. Xiao Ming"/></div>
+    <div class="modal-field">
+      <label>Age</label>
+      <select id="child-age">
+        <option value="4">4 years old</option>
+        <option value="5">5 years old</option>
+        <option value="6" selected>6 years old</option>
+        <option value="7">7 years old</option>
+        <option value="8">8 years old</option>
+      </select>
+    </div>
+    <div class="modal-btns">
+      <button class="modal-cancel" onclick="hideModal()">Cancel</button>
+      <button class="modal-save" onclick="saveChild()">Save →</button>
+    </div>
+  </div>
+</div>
+
+<script>
+const SUPABASE_URL = 'https://efsyzwpbysdzqptqshco.supabase.co';
+const SUPABASE_KEY = 'REPLACE_WITH_YOUR_ANON_KEY';
+const { createClient } = supabase;
+const sb = createClient(SUPABASE_URL, SUPABASE_KEY);
+
+let currentUser = null;
+let children = [];
+let activeChild = null;
+
+sb.auth.getSession().then(({ data }) => {
+  if (!data.session) { window.location.href = 'login.html'; return; }
+  currentUser = data.session.user;
+  const name = currentUser.user_metadata?.full_name || currentUser.email.split('@')[0];
+  document.getElementById('nav-user').textContent = 'Hi, ' + name + ' 👋';
+  loadChildren();
+  loadStreak();
+});
+
+async function signOut() {
+  await sb.auth.signOut();
+  window.location.href = 'login.html';
+}
+
+function loadChildren() {
+  const stored = localStorage.getItem('atop_children_' + currentUser.id);
+  children = stored ? JSON.parse(stored) : [];
+  renderChildren();
+}
+
+function renderChildren() {
+  const row = document.getElementById('child-row');
+  row.innerHTML = '';
+  children.forEach(c => {
+    const pill = document.createElement('button');
+    pill.className = 'child-pill' + (activeChild?.id === c.id ? ' active' : '');
+    pill.innerHTML = '<div class="child-avatar">' + c.name.charAt(0).toUpperCase() + '</div>' + c.name;
+    pill.onclick = () => selectChild(c);
+    row.appendChild(pill);
+  });
+  const addBtn = document.createElement('button');
+  addBtn.className = 'add-child';
+  addBtn.textContent = '+ Add child';
+  addBtn.onclick = showAddChild;
+  row.appendChild(addBtn);
+  if (children.length > 0 && !activeChild) selectChild(children[0]);
+}
+
+function selectChild(child) {
+  activeChild = child;
+  document.getElementById('child-name-display').textContent = child.name;
+  localStorage.setItem('atop_active_child', JSON.stringify(child));
+  renderChildren();
+}
+
+function loadStreak() {
+  const key = 'atop_streak_' + (currentUser?.id || 'guest');
+  const data = JSON.parse(localStorage.getItem(key) || '{"days":0}');
+  document.getElementById('streak-num').textContent = data.days + ' day' + (data.days !== 1 ? 's' : '');
+}
+
+function showAddChild() { document.getElementById('modal').style.display = 'flex'; }
+function hideModal()     { document.getElementById('modal').style.display = 'none'; }
+
+function saveChild() {
+  const name = document.getElementById('child-name-input').value.trim();
+  const age  = document.getElementById('child-age').value;
+  if (!name) return;
+  const child = { id: Date.now().toString(), name, age: parseInt(age) };
+  children.push(child);
+  localStorage.setItem('atop_children_' + currentUser.id, JSON.stringify(children));
+  hideModal();
+  document.getElementById('child-name-input').value = '';
+  selectChild(child);
+  renderChildren();
+}
+</script>
+</body>
+</html>
