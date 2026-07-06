@@ -1097,11 +1097,6 @@ const _SKEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJl
 const { createClient } = supabase;
 const _sb = createClient(_SURL, _SKEY);
 
-// Redirect if already logged in
-_sb.auth.getSession().then(({ data }) => {
-  if (data.session) window.location.href = 'hub.html';
-});
-
 function ctaSetMode(mode) {
   const isSignup = mode === 'signup';
   document.getElementById('cta-form-signup').style.display = isSignup ? '' : 'none';
