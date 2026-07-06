@@ -20,7 +20,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",system-ui,sans-seri
 .nav-left{display:flex;align-items:center;gap:14px}
 .nav-back{font-size:13px;font-weight:600;color:var(--muted);text-decoration:none;display:flex;align-items:center;gap:4px}
 .nav-back:hover{color:var(--pink)}
-.nav-logo{font-size:17px;font-weight:800;letter-spacing:-0.5px;color:var(--text)}.nav-logo span{color:var(--pink)}
+.nav-logo{font-size:17px;font-weight:800;letter-spacing:-0.5px;color:var(--text);text-decoration:none;cursor:pointer}.nav-logo span{color:var(--pink)}
 .nav-right{display:flex;align-items:center;gap:12px}
 .nav-user{font-size:13px;color:var(--muted)}
 .nav-signout{font-size:13px;color:var(--muted);cursor:pointer;border:1.5px solid var(--border);border-radius:99px;padding:5px 12px;background:transparent;font-family:inherit;transition:all .15s}
@@ -107,7 +107,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",system-ui,sans-seri
 <nav class="nav">
   <div class="nav-left">
     <a class="nav-back" href="hub.html">&larr; Back to Hub</a>
-    <div class="nav-logo">ATOP<span>AI</span></div>
+    <a class="nav-logo" href="hub.html">ATOP<span>AI</span></a>
   </div>
   <div class="nav-right">
     <span class="nav-user" id="nav-user"></span>
