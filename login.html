@@ -154,7 +154,7 @@ const sb = createClient(SUPABASE_URL, SUPABASE_KEY);
 
 // Redirect if already logged in
 sb.auth.getSession().then(({ data }) => {
-  if (data.session) window.location.href = 'games.html';
+  if (data.session) window.location.href = 'hub.html';
 });
 
 const CHARS = {
@@ -199,7 +199,7 @@ async function doLogin() {
   setLoading('btn-login', true);
   const { error } = await sb.auth.signInWithPassword({ email, password: pw });
   if (error) { setMsg('msg-login', error.message, 'error'); setLoading('btn-login', false); }
-  else { setMsg('msg-login','Signed in! Redirecting...','success'); setTimeout(()=>window.location.href='games.html',800); }
+  else { setMsg('msg-login','Signed in! Redirecting...','success'); setTimeout(()=>window.location.href='hub.html',800); }
 }
 
 async function doSignup() {
@@ -217,7 +217,7 @@ async function doSignup() {
 async function doGoogle() {
   const { error } = await sb.auth.signInWithOAuth({
     provider: 'google',
-    options: { redirectTo: window.location.origin + '/games.html' }
+    options: { redirectTo: window.location.origin + '/hub.html' }
   });
   if (error) alert(error.message);
 }
