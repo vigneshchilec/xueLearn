@@ -124,34 +124,34 @@ section { padding: 96px 24px; }
   border-bottom: 1px solid #E8DDD0;
 }
 .win-dot { width: 10px; height: 10px; border-radius: 50%; }
-.game-inner { padding: 20px 18px; background: #1A1A2E; color: #fff; }
+.game-inner { padding: 20px 18px; background: #FAFAFA; }
 
-/* game styles duplicated from main game */
+/* game styles duplicated from main game — mirrors app.html's light theme */
 .g-hud { display:flex; align-items:center; justify-content:space-between; margin-bottom:14px; }
 .g-logo { font-size:15px; font-weight:800; color:#E8543A; }
-.g-stars { background:rgba(255,127,62,.15); color:#E8543A; border-radius:99px; padding:3px 12px; font-size:12px; font-weight:700; }
-.g-mode-tabs { display:flex; gap:5px; background:rgba(255,255,255,.05); border-radius:10px; padding:4px; margin-bottom:14px; }
-.g-tab { flex:1; padding:6px 4px; border-radius:7px; border:none; background:transparent; font-size:11px; font-weight:700; color:rgba(255,255,255,.4); cursor:pointer; transition:all .15s; text-align:center; }
-.g-tab.active { background:var(--orange); color:#fff; }
-.g-card { background:rgba(255,255,255,.04); border:1px solid rgba(255,255,255,.08); border-radius:14px; padding:18px 16px; }
-.g-companion { display:flex; gap:10px; align-items:flex-start; background:rgba(255,255,255,.05); border-radius:10px; padding:10px 12px; margin-bottom:14px; }
-.g-bao { width:36px; height:36px; border-radius:99px; background:rgba(255,127,62,.15); display:flex; align-items:center; justify-content:center; font-size:18px; flex-shrink:0; }
-.g-bao-name { font-size:10px; color:rgba(255,255,255,.4); margin-bottom:2px; font-weight:700; letter-spacing:.05em; }
-.g-bao-msg { font-size:12px; color:rgba(255,255,255,.8); line-height:1.5; }
+.g-stars { background:#FFF8EC; color:#E8543A; border-radius:99px; padding:3px 12px; font-size:12px; font-weight:700; border:1.5px solid #FFE4B0; }
+.g-mode-tabs { display:flex; gap:5px; background:#FAFAFA; border-radius:10px; padding:4px; margin-bottom:14px; border:1.5px solid #E5E7EB; }
+.g-tab { flex:1; padding:6px 4px; border-radius:7px; border:none; background:transparent; font-size:11px; font-weight:700; color:#6B7280; cursor:pointer; transition:all .15s; text-align:center; }
+.g-tab.active { background:#E8543A; color:#fff; }
+.g-card { background:#FFFFFF; border:2px solid #E5E7EB; border-radius:14px; padding:18px 16px; box-shadow:0 4px 16px rgba(0,0,0,0.06); }
+.g-companion { display:flex; gap:10px; align-items:flex-start; background:#FFF8EC; border-radius:10px; padding:10px 12px; margin-bottom:14px; border:1.5px solid #FFE4B0; }
+.g-bao { width:36px; height:36px; border-radius:99px; background:#FFF8EC; border:2px solid #FFE4B0; display:flex; align-items:center; justify-content:center; font-size:18px; flex-shrink:0; }
+.g-bao-name { font-size:10px; color:#E8543A; margin-bottom:2px; font-weight:700; letter-spacing:.05em; }
+.g-bao-msg { font-size:12px; color:#1A1A2E; line-height:1.5; }
 .g-char { font-size:72px; text-align:center; line-height:1; margin-bottom:4px; font-weight:900; font-family:serif; }
-.g-pinyin { text-align:center; font-size:15px; color:#60A8E0; margin-bottom:3px; font-weight:600; }
-.g-story { text-align:center; font-size:11px; color:rgba(255,255,255,.4); margin-bottom:16px; line-height:1.5; }
+.g-pinyin { text-align:center; font-size:15px; color:#2EC4B6; margin-bottom:3px; font-weight:600; }
+.g-story { text-align:center; font-size:11px; color:#6B7280; margin-bottom:16px; line-height:1.5; }
 .g-choices { display:grid; grid-template-columns:1fr 1fr; gap:7px; }
-.g-choice { padding:13px 8px; border-radius:10px; border:1.5px solid rgba(255,255,255,.1); background:rgba(255,255,255,.04); font-size:14px; font-weight:700; color:#fff; transition:all .15s; text-align:center; cursor:pointer; }
-.g-choice:hover:not(:disabled) { border-color:var(--orange); background:rgba(255,127,62,.1); color:var(--orange); }
-.g-choice.correct { border-color:#3DB87A; background:rgba(61,184,122,.12); color:#3DB87A; }
-.g-choice.wrong { border-color:#E8543A; background:rgba(232,84,58,.12); color:#E8543A; }
+.g-choice { padding:13px 8px; border-radius:10px; border:2px solid #E5E7EB; background:#FFFFFF; font-size:14px; font-weight:700; color:#1A1A2E; transition:all .15s; text-align:center; cursor:pointer; }
+.g-choice:hover:not(:disabled) { border-color:#7B2FBE; background:#F5EEFF; color:#7B2FBE; }
+.g-choice.correct { border-color:#10B981; background:#ECFDF5; color:#065F46; }
+.g-choice.wrong { border-color:#FF4D6D; background:#FFF0F3; color:#FF4D6D; }
 .g-choice:disabled { cursor:default; }
 .g-feedback { text-align:center; font-size:13px; font-weight:700; min-height:20px; margin-top:10px; }
 .g-next { width:100%; padding:11px; border-radius:10px; background:var(--orange); color:#fff; font-size:14px; font-weight:700; border:none; margin-top:10px; cursor:pointer; }
 .g-next:hover { background:var(--orange-d); }
 .g-dots { display:flex; gap:5px; justify-content:center; margin-bottom:14px; }
-.g-dot { width:7px; height:7px; border-radius:99px; background:rgba(255,255,255,.1); }
+.g-dot { width:7px; height:7px; border-radius:99px; background:#E5E7EB; }
 .g-dot.ok { background:#3DB87A; } .g-dot.no { background:#E8543A; } .g-dot.cur { background:var(--orange); }
 
 /* ── Traction / Market ── */
@@ -733,7 +733,7 @@ function gRenderQuiz(){
         <span style="font-size:20px;font-weight:900;color:#E8543A;font-family:serif">${q.char}</span>
         <span style="font-size:13px;color:#60A8E0;font-weight:600">${q.pinyin}</span>
       </div>
-      <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:14px;padding:10px;display:inline-block">
+      <div style="background:#FAFAFA;border:2px solid #E5E7EB;border-radius:14px;padding:10px;display:inline-block">
         ${SVGS[q.char] || '<div style="font-size:72px;font-family:serif;color:#E8543A">'+q.char+'</div>'}
       </div>
     </div>
