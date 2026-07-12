@@ -349,41 +349,6 @@ setInterval(() => {
   }, 400);
 }, 3000);
 
-// ─ CTA form ─
-async function submitCTA() {
-  const email = document.getElementById('cta-email').value.trim();
-  const status = document.getElementById('cta-status');
-  if (!email || !email.includes('@')) {
-    status.textContent = 'Please enter a valid email.';
-    status.style.color = '#E8543A';
-    return;
-  }
-  document.querySelector('.cta-submit').disabled = true;
-  status.textContent = 'Joining...';
-  status.style.color = '#8892A4';
-  try {
-    const res = await fetch('https://web-production-9ad71.up.railway.app/api/waitlist', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ email: email, source: 'landing_page' })
-    });
-    const data = await res.json();
-    if (data.ok) {
-      status.textContent = "✓ You're on the list! We'll be in touch soon.";
-      status.style.color = '#3DB87A';
-      document.getElementById('cta-email').value = '';
-    } else {
-      status.textContent = data.message || 'Already on the list!';
-      status.style.color = '#3DB87A';
-    }
-  } catch(err) {
-    status.textContent = 'Something went wrong. Try again!';
-    status.style.color = '#E8543A';
-  } finally {
-    document.querySelector('.cta-submit').disabled = false;
-  }
-}
-document.getElementById('cta-email').addEventListener('keydown', e => { if(e.key==='Enter') submitCTA(); });
 </script>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
