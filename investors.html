@@ -328,7 +328,7 @@ footer {
           <div class="win-dot" style="background:#FF5F57"></div>
           <div class="win-dot" style="background:#FEBC2E;margin-left:4px"></div>
           <div class="win-dot" style="background:#28C840;margin-left:4px"></div>
-          <span style="font-size:11px;color:rgba(255,255,255,.3);margin-left:10px">atop-ai.app/play</span>
+          <span style="font-size:11px;color:#9CA3AF;margin-left:10px">atop-ai.app/play</span>
         </div>
         <div class="game-inner">
           <div class="g-hud">
@@ -779,12 +779,12 @@ function gRenderFill(){
   document.getElementById('g-card').innerHTML=`
     <div class="g-dots">${gDotsHtml(FILL_Q.length,fResults,fIdx)}</div>
     <div class="g-companion"><div class="g-bao">🐼</div><div><div class="g-bao-name">BAO BAO</div><div class="g-bao-msg">Fill in the blank! 填空！</div></div></div>
-    <div style="background:rgba(96,168,224,.1);color:#60A8E0;border-radius:8px;padding:4px 12px;font-size:12px;font-weight:700;text-align:center;margin-bottom:12px">${q.charHint}</div>
-    <div style="font-size:17px;font-weight:700;text-align:center;margin-bottom:4px;line-height:1.5" id="g-sent">${q.template.replace('___','<span style="color:rgba(255,255,255,.3)">___</span>')}</div>
-    <div style="font-size:12px;text-align:center;color:rgba(255,255,255,.35);margin-bottom:14px">${q.zh}</div>
-    <div id="g-blank" style="min-width:100px;min-height:40px;border-radius:9px;border:2px dashed rgba(255,255,255,.15);display:flex;align-items:center;justify-content:center;font-size:17px;font-weight:700;color:rgba(255,255,255,.3);margin:0 auto 14px;padding:6px 18px;transition:all .2s">___</div>
+    <div style="background:#EFF5FF;color:#3B82F6;border-radius:8px;padding:4px 12px;font-size:12px;font-weight:700;text-align:center;margin-bottom:12px">${q.charHint}</div>
+    <div style="font-size:17px;font-weight:700;text-align:center;margin-bottom:4px;line-height:1.5;color:#1A1A2E" id="g-sent">${q.template.replace('___','<span style="color:#C4CAD4">___</span>')}</div>
+    <div style="font-size:12px;text-align:center;color:#9CA3AF;margin-bottom:14px">${q.zh}</div>
+    <div id="g-blank" style="min-width:100px;min-height:40px;border-radius:9px;border:2px dashed #D1D5DB;background:#FAFAFA;display:flex;align-items:center;justify-content:center;font-size:17px;font-weight:700;color:#9CA3AF;margin:0 auto 14px;padding:6px 18px;transition:all .2s">___</div>
     <div style="display:flex;flex-wrap:wrap;gap:7px;justify-content:center" id="g-bank">
-      ${tiles.map(t=>`<button style="padding:7px 14px;border-radius:99px;border:1.5px solid rgba(255,255,255,.1);background:rgba(255,255,255,.05);font-size:13px;font-weight:700;color:#fff;cursor:pointer;transition:all .15s" onmouseover="this.style.borderColor='#E8543A';this.style.color='#E8543A'" onmouseout="if(!this.disabled){this.style.borderColor='rgba(255,255,255,.1)';this.style.color='#fff'}" onclick="gPickFill(this,'${t}','${q.answer}','${q.template}')">${t}</button>`).join('')}
+      ${tiles.map(t=>`<button style="padding:7px 14px;border-radius:99px;border:1.5px solid #E5E7EB;background:#FFFFFF;font-size:13px;font-weight:700;color:#1A1A2E;cursor:pointer;transition:all .15s" onmouseover="this.style.borderColor='#E8543A';this.style.color='#E8543A'" onmouseout="if(!this.disabled){this.style.borderColor='#E5E7EB';this.style.color='#1A1A2E'}" onclick="gPickFill(this,'${t}','${q.answer}','${q.template}')">${t}</button>`).join('')}
     </div>
     <div class="g-feedback" id="g-fb"></div>
   `;
@@ -809,8 +809,8 @@ function gRenderDone(results){
   document.getElementById('g-card').innerHTML=`
     <div style="text-align:center;padding:16px 0">
       <div style="font-size:44px;margin-bottom:10px">${pct>=80?'🌟':'⭐'}</div>
-      <div style="font-size:18px;font-weight:800;margin-bottom:6px">${pct>=80?'Excellent! 优秀！':'Keep going! 继续！'}</div>
-      <div style="font-size:13px;color:rgba(255,255,255,.4);margin-bottom:20px">${ok}/${results.length} correct · ${pct}%</div>
+      <div style="font-size:18px;font-weight:800;margin-bottom:6px;color:#1A1A2E">${pct>=80?'Excellent! 优秀！':'Keep going! 继续！'}</div>
+      <div style="font-size:13px;color:#9CA3AF;margin-bottom:20px">${ok}/${results.length} correct · ${pct}%</div>
       <button class="g-next" style="width:auto;padding:10px 24px" onclick="gReplay()">Play again 再玩一次</button>
     </div>
   `;
