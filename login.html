@@ -3,39 +3,48 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ATOP AI — Sign in</title>
+<title>Wen — Sign in</title>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 html,body{height:100%}
+:root{
+  --terracotta:#E8622E; --terracotta-d:#CE5024; --gold:#E8A94C;
+  --paper:#FDF3E9; --paper-2:#FCEEDD; --ink:#241F1B; --ink-soft:#6B5D50;
+  --border:#F0E2D0; --muted:#8A7C6E;
+}
 body{
   font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",system-ui,sans-serif;
-  background:#FAFAFA;color:#fff;
+  background:var(--paper);color:#fff;
   display:flex;align-items:center;justify-content:center;
   min-height:100vh;padding:20px;
 }
 .card{
   width:100%;max-width:900px;background:#FFFFFF;
-  border:1.5px solid #E5E7EB;border-radius:20px;overflow:hidden;
+  border:1.5px solid var(--border);border-radius:24px;overflow:hidden;
   display:grid;grid-template-columns:1fr 1fr;min-height:560px;
-  box-shadow:0 32px 64px rgba(0,0,0,0.4);
+  box-shadow:0 32px 64px rgba(88,55,30,0.18);
 }
 .left{
-  background:#FFF8F0;padding:48px 40px;
+  background:var(--paper-2);padding:48px 40px;
   display:flex;flex-direction:column;justify-content:space-between;
-  border-right:1.5px solid #E5E7EB;
+  border-right:1.5px solid var(--border);
 }
-.logo{font-size:20px;font-weight:800;letter-spacing:-0.5px;color:#1A1A2E}
-.logo span{color:#FF7F3E}
+.logo{display:flex;align-items:center;gap:8px;font-size:19px;font-weight:800;letter-spacing:-0.5px;color:var(--ink)}
+.logo svg{width:30px;height:30px;flex-shrink:0}
+.brand-credit{font-size:11px;color:var(--muted);font-weight:600;margin-top:2px;margin-left:38px}
+.wen-hero{display:flex;flex-direction:column;align-items:flex-start}
+.wen-hero-avatar{width:120px;height:120px;animation:wen-breathe 4.5s ease-in-out infinite;filter:drop-shadow(0 12px 28px rgba(232,98,46,0.28))}
+@keyframes wen-breathe{0%,100%{transform:scale(1)}50%{transform:scale(1.035)}}
 .hero-char{
-  font-size:clamp(80px,12vw,140px);font-family:serif;font-weight:900;
-  color:#FF7F3E;line-height:1;
-  filter:drop-shadow(0 0 40px rgba(255,127,62,0.3));
+  font-size:34px;font-family:serif;font-weight:900;
+  color:var(--terracotta);line-height:1;margin-top:18px;
   transition:opacity .4s ease;
 }
-.char-label{font-size:13px;color:#8BA8C4;letter-spacing:.1em;text-transform:uppercase;margin-top:8px;font-weight:500}
-.left-footer{font-size:13px;color:#6B7280;line-height:1.6}
-.left-footer strong{color:#1A1A2E;font-weight:500}
+.char-label{font-size:13px;color:var(--muted);letter-spacing:.1em;text-transform:uppercase;margin-top:6px;font-weight:600}
+.left-footer{font-size:13px;color:var(--ink-soft);line-height:1.6}
+.left-footer strong{color:var(--ink);font-weight:700}
+.left-footer .credit{display:block;margin-top:6px;font-size:11.5px;color:var(--muted);font-weight:600}
 .right{padding:48px 40px;display:flex;flex-direction:column;justify-content:center}
 .tab-row{
   display:flex;gap:6px;background:#F3F4F6;
@@ -46,47 +55,47 @@ body{
   background:transparent;color:#8BA8C4;font-size:14px;font-weight:600;
   cursor:pointer;transition:all .15s;text-align:center;font-family:inherit;
 }
-.tab.active{background:#FF7F3E;color:#fff}
-.form-title{font-size:22px;font-weight:700;margin-bottom:6px;color:#1A1A2E}
-.form-sub{font-size:14px;color:#6B7280;margin-bottom:24px;line-height:1.5}
+.tab.active{background:var(--terracotta);color:#fff}
+.form-title{font-size:22px;font-weight:800;margin-bottom:6px;color:var(--ink)}
+.form-sub{font-size:14px;color:var(--ink-soft);margin-bottom:24px;line-height:1.5}
 .field{margin-bottom:14px}
-.field label{display:block;font-size:12px;font-weight:600;color:#6B7280;margin-bottom:6px;letter-spacing:.04em;text-transform:uppercase}
+.field label{display:block;font-size:12px;font-weight:600;color:var(--ink-soft);margin-bottom:6px;letter-spacing:.04em;text-transform:uppercase}
 .field input{
-  width:100%;padding:12px 14px;background:#F9FAFB;
-  border:1.5px solid #E5E7EB;border-radius:10px;
-  color:#1A1A2E;font-size:15px;outline:none;transition:border-color .15s;font-family:inherit;
+  width:100%;padding:12px 14px;background:var(--paper);
+  border:1.5px solid var(--border);border-radius:10px;
+  color:var(--ink);font-size:15px;outline:none;transition:border-color .15s;font-family:inherit;
 }
-.field input::placeholder{color:#9CA3AF}
-.field input:focus{border-color:#2EC4B6}
+.field input::placeholder{color:var(--muted)}
+.field input:focus{border-color:var(--terracotta)}
 .btn-primary{
-  width:100%;padding:13px;border-radius:10px;background:#FF7F3E;color:#fff;
+  width:100%;padding:13px;border-radius:10px;background:var(--terracotta);color:#fff;
   font-size:15px;font-weight:700;border:none;cursor:pointer;
-  transition:opacity .15s,transform .1s;margin-top:4px;font-family:inherit;
+  transition:background .15s,transform .1s;margin-top:4px;font-family:inherit;
 }
-.btn-primary:hover{opacity:.9;transform:translateY(-1px)}
+.btn-primary:hover{background:var(--terracotta-d);transform:translateY(-1px)}
 .btn-primary:disabled{opacity:.5;cursor:default;transform:none}
-.divider{display:flex;align-items:center;gap:12px;margin:16px 0;color:#9CA3AF;font-size:13px}
-.divider::before,.divider::after{content:'';flex:1;height:1px;background:#E5E7EB}
+.divider{display:flex;align-items:center;gap:12px;margin:16px 0;color:var(--muted);font-size:13px}
+.divider::before,.divider::after{content:'';flex:1;height:1px;background:var(--border)}
 .btn-google{
   width:100%;padding:12px;border-radius:10px;
-  background:#FFFFFF;border:1.5px solid #E5E7EB;
-  color:#1A1A2E;font-size:15px;font-weight:600;cursor:pointer;
+  background:#FFFFFF;border:1.5px solid var(--border);
+  color:var(--ink);font-size:15px;font-weight:600;cursor:pointer;
   transition:background .15s;display:flex;align-items:center;justify-content:center;gap:10px;
   font-family:inherit;
 }
-.btn-google:hover{background:#F9FAFB}
+.btn-google:hover{background:var(--paper)}
 .google-icon{width:18px;height:18px;flex-shrink:0}
 .msg{font-size:13px;text-align:center;min-height:20px;margin-top:14px;font-weight:500;line-height:1.5}
-.msg.error{color:#ff6b6b}
+.msg.error{color:#DC5A4E}
 .msg.success{color:#3DB87A}
-.msg.info{color:#8BA8C4}
-.forgot{text-align:right;font-size:12px;color:#6B7280;margin-top:4px;cursor:pointer;text-decoration:underline}
-.forgot:hover{color:#fff}
+.msg.info{color:var(--muted)}
+.forgot{text-align:right;font-size:12px;color:var(--ink-soft);margin-top:4px;cursor:pointer;text-decoration:underline}
+.forgot:hover{color:var(--terracotta)}
 @media(max-width:640px){
   .card{grid-template-columns:1fr;min-height:auto}
-  .left{padding:28px 24px;flex-direction:row;align-items:center;gap:16px;border-right:none;border-bottom:1.5px solid #E5E7EB}
-  .hero-char{font-size:52px}
-  .left-footer{display:none}
+  .left{padding:20px 24px;flex-direction:row;align-items:center;justify-content:space-between;gap:14px;border-right:none;border-bottom:1.5px solid var(--border)}
+  .brand-credit, .hero-char, .char-label, .left-footer{display:none}
+  .wen-hero-avatar{width:50px;height:50px}
   .right{padding:28px 24px}
 }
 </style>
@@ -94,14 +103,49 @@ body{
 <body>
 <div class="card">
   <div class="left">
-    <div class="logo">ATOP<span>AI</span></div>
     <div>
+      <div class="logo">
+        <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="32" cy="32" r="30" fill="url(#loginNavGrad)"/>
+          <defs>
+            <radialGradient id="loginNavGrad" cx="35%" cy="30%" r="75%">
+              <stop offset="0%" stop-color="#FCCB7B"/>
+              <stop offset="55%" stop-color="#E8A94C"/>
+              <stop offset="100%" stop-color="#E2603A"/>
+            </radialGradient>
+          </defs>
+          <circle cx="24" cy="30" r="2.6" fill="#3A2415"/>
+          <circle cx="40" cy="30" r="2.6" fill="#3A2415"/>
+          <path d="M23 39q9 8 18 0" stroke="#3A2415" stroke-width="2.6" fill="none" stroke-linecap="round"/>
+        </svg>
+        Wen
+      </div>
+      <div class="brand-credit">by ATOP AI</div>
+    </div>
+    <div class="wen-hero">
+      <svg class="wen-hero-avatar" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <radialGradient id="loginHeroBody" cx="35%" cy="30%" r="75%">
+            <stop offset="0%" stop-color="#FCCB7B"/>
+            <stop offset="55%" stop-color="#E8A94C"/>
+            <stop offset="100%" stop-color="#E2603A"/>
+          </radialGradient>
+        </defs>
+        <circle cx="100" cy="100" r="96" fill="url(#loginHeroBody)"/>
+        <text x="100" y="114" text-anchor="middle" font-size="40" font-weight="900" fill="#7A3A16" opacity="0.45">文</text>
+        <circle cx="82" cy="92" r="6.2" fill="#3A2415"/>
+        <circle cx="118" cy="92" r="6.2" fill="#3A2415"/>
+        <path d="M78 116q22 20 44 0" stroke="#3A2415" stroke-width="5.5" fill="none" stroke-linecap="round"/>
+        <ellipse cx="66" cy="108" rx="8" ry="5" fill="#fff" opacity=".3"/>
+        <ellipse cx="134" cy="108" rx="8" ry="5" fill="#fff" opacity=".3"/>
+      </svg>
       <div class="hero-char" id="hero-char">欢</div>
       <div class="char-label" id="char-label">huān · welcome</div>
     </div>
     <div class="left-footer">
-      <strong>Bilingual learning</strong> for the next generation.<br>
-      双语学习，为下一代而生。
+      <strong>Connection, not homework.</strong><br>
+      语言是连接，不是作业。
+      <span class="credit">© 2026 ATOP AI Inc.</span>
     </div>
   </div>
   <div class="right">
