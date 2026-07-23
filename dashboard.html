@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ATOP AI — Parent Dashboard</title>
+<title>Wen — Parent Dashboard</title>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
@@ -20,8 +20,8 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",system-ui,sans-seri
 .nav-left{display:flex;align-items:center;gap:14px}
 .nav-back{font-size:13px;font-weight:600;color:var(--muted);text-decoration:none;display:flex;align-items:center;gap:4px}
 .nav-back:hover{color:var(--pink)}
-.nav-logo{font-size:17px;font-weight:800;letter-spacing:-0.5px;color:var(--text);text-decoration:none;cursor:pointer}
-.nav-logo span{color:var(--pink)}
+.nav-logo{display:flex;align-items:center;gap:8px;font-size:17px;font-weight:800;letter-spacing:-0.5px;color:var(--text);text-decoration:none;cursor:pointer}
+.nav-logo svg{width:26px;height:26px;flex-shrink:0}
 .nav-right{display:flex;align-items:center;gap:10px}
 .nav-user{font-size:13px;color:var(--muted)}
 .nav-signout{font-size:13px;color:var(--muted);cursor:pointer;border:1.5px solid var(--border);border-radius:99px;padding:5px 12px;background:transparent;font-family:inherit;transition:all .15s}
@@ -48,6 +48,13 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",system-ui,sans-seri
 .delta-up{color:var(--good)}
 .delta-down{color:var(--bad)}
 .delta-note{color:var(--orange)}
+
+/* Wen weekly summary */
+.wen-summary{display:flex;gap:14px;align-items:flex-start;background:#FFF3E6;border:2px solid #FBDEB8;border-radius:16px;padding:18px 20px;margin-bottom:20px}
+.wen-summary-avatar{width:46px;height:46px;flex-shrink:0;animation:wen-breathe 4.5s ease-in-out infinite}
+@keyframes wen-breathe{0%,100%{transform:scale(1)}50%{transform:scale(1.04)}}
+.wen-summary-name{font-size:11px;font-weight:800;letter-spacing:.06em;color:#C9601B;margin-bottom:4px}
+.wen-summary-text{font-size:14.5px;color:var(--text);line-height:1.55;font-weight:600}
 
 /* AI coach */
 .ai-coach{background:var(--blue-l);border:2px solid #C9DEFF;border-radius:16px;padding:20px;margin-bottom:20px}
@@ -112,7 +119,22 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",system-ui,sans-seri
 <nav class="nav">
   <div class="nav-left">
     <a class="nav-back" href="hub.html">&larr; Back to Hub</a>
-    <a class="nav-logo" href="/">ATOP<span>AI</span></a>
+    <a class="nav-logo" href="/">
+      <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="32" cy="32" r="30" fill="url(#navGrad)"/>
+        <defs>
+          <radialGradient id="navGrad" cx="35%" cy="30%" r="75%">
+            <stop offset="0%" stop-color="#FCCB7B"/>
+            <stop offset="55%" stop-color="#E8A94C"/>
+            <stop offset="100%" stop-color="#E2603A"/>
+          </radialGradient>
+        </defs>
+        <circle cx="24" cy="30" r="2.6" fill="#3A2415"/>
+        <circle cx="40" cy="30" r="2.6" fill="#3A2415"/>
+        <path d="M23 39q9 8 18 0" stroke="#3A2415" stroke-width="2.6" fill="none" stroke-linecap="round"/>
+      </svg>
+      Wen
+    </a>
   </div>
   <div class="nav-right">
     <span class="nav-user" id="nav-user"></span>
@@ -139,6 +161,26 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",system-ui,sans-seri
     </select>
   </div>
 
+  <div class="wen-summary">
+    <svg class="wen-summary-avatar" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="32" cy="32" r="30" fill="url(#summaryGrad)"/>
+      <defs>
+        <radialGradient id="summaryGrad" cx="35%" cy="30%" r="75%">
+          <stop offset="0%" stop-color="#FCCB7B"/>
+          <stop offset="55%" stop-color="#E8A94C"/>
+          <stop offset="100%" stop-color="#E2603A"/>
+        </radialGradient>
+      </defs>
+      <circle cx="24" cy="30" r="2.6" fill="#3A2415"/>
+      <circle cx="40" cy="30" r="2.6" fill="#3A2415"/>
+      <path d="M23 39q9 8 18 0" stroke="#3A2415" stroke-width="2.6" fill="none" stroke-linecap="round"/>
+    </svg>
+    <div>
+      <div class="wen-summary-name">WEN</div>
+      <div class="wen-summary-text" id="wen-summary-text">Xiao Ming had a great week! He learned 8 new characters and kept a 6-day streak. This week I'd focus on pinyin together. 🧡</div>
+    </div>
+  </div>
+
   <div class="stats-grid">
     <div class="stat-card">
       <div class="stat-label">Avg. session</div>
@@ -163,26 +205,26 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",system-ui,sans-seri
   </div>
 
   <div class="ai-coach">
-    <div class="ai-coach-title">✦ AI coach recommendations for this week</div>
+    <div class="ai-coach-title">🧡 This week, Wen noticed...</div>
     <div class="ai-item">
       <span class="ai-item-icon">🎤</span>
       <div>
-        <div class="ai-item-title">Practice retroflex sounds tonight (zh, ch, sh)</div>
-        <div class="ai-item-desc">Xiao Ming confuses these in 6 out of 10 pinyin exercises — 5 min of tongue twisters helps <a href="#">↗</a></div>
+        <div class="ai-item-title">A little extra practice with zh, ch, sh could help</div>
+        <div class="ai-item-desc">Xiao Ming mixed these up in 6 out of 10 pinyin exercises — 5 minutes of tongue twisters together tonight would help <a href="#">↗</a></div>
       </div>
     </div>
     <div class="ai-item">
       <span class="ai-item-icon">🍃</span>
       <div>
-        <div class="ai-item-title">Reinforce nature vocabulary with real objects</div>
-        <div class="ai-item-desc">He learned 山、水、木 this week — point them out on a walk to cement memory <a href="#">↗</a></div>
+        <div class="ai-item-title">He's loving nature words lately</div>
+        <div class="ai-item-desc">He learned 山、水、木 this week — pointing them out on a walk would help it stick <a href="#">↗</a></div>
       </div>
     </div>
     <div class="ai-item">
       <span class="ai-item-icon">☆</span>
       <div>
-        <div class="ai-item-title">Celebrate the 6-day streak — he needs it</div>
-        <div class="ai-item-desc">Accuracy dipped this week but consistency is up. Positive reinforcement now protects motivation <a href="#">↗</a></div>
+        <div class="ai-item-title">That 6-day streak deserves a celebration</div>
+        <div class="ai-item-desc">Accuracy dipped a little this week, but showing up every day matters more — a little praise now goes a long way <a href="#">↗</a></div>
       </div>
     </div>
   </div>

@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ATOP AI — Investor Overview</title>
+<title>Wen — Investor Overview</title>
 <style>
   :root {
     --pink:#FF4D6D;--orange:#FF9F1C;--teal:#2EC4B6;--purple:#7B2FBE;
@@ -45,8 +45,9 @@ nav {
   backdrop-filter: blur(12px); box-shadow: 0 2px 12px rgba(0,0,0,0.06);
   border-bottom: 1px solid #E8DDD0;
 }
-.nav-logo { font-size: 18px; font-weight: 800; color: #1A1A2E; letter-spacing: -0.5px; } .nav-logo span { color: #E8543A; }
-.nav-logo span { color: #FF9F1C; }
+.nav-logo { display:flex; align-items:center; gap:8px; font-size: 18px; font-weight: 800; color: #1A1A2E; letter-spacing: -0.5px; }
+.nav-logo svg { width:30px; height:30px; flex-shrink:0; }
+.nav-logo-sub { font-size:11px; font-weight:700; color:#8892A4; margin-left:2px; }
 .nav-actions { display: flex; align-items: center; gap: 12px; }
 .nav-secondary {
   background: transparent; color: #1A1A2E;
@@ -135,7 +136,8 @@ section { padding: 96px 24px; }
 .g-tab.active { background:#E8543A; color:#fff; }
 .g-card { background:#FFFFFF; border:2px solid #E5E7EB; border-radius:14px; padding:18px 16px; box-shadow:0 4px 16px rgba(0,0,0,0.06); }
 .g-companion { display:flex; gap:10px; align-items:flex-start; background:#FFF8EC; border-radius:10px; padding:10px 12px; margin-bottom:14px; border:1.5px solid #FFE4B0; }
-.g-bao { width:36px; height:36px; border-radius:99px; background:#FFF8EC; border:2px solid #FFE4B0; display:flex; align-items:center; justify-content:center; font-size:18px; flex-shrink:0; }
+.g-bao { width:36px; height:36px; border-radius:99px; display:flex; align-items:center; justify-content:center; flex-shrink:0; }
+.g-bao svg { width:36px; height:36px; }
 .g-bao-name { font-size:10px; color:#E8543A; margin-bottom:2px; font-weight:700; letter-spacing:.05em; }
 .g-bao-msg { font-size:12px; color:#1A1A2E; line-height:1.5; }
 .g-char { font-size:72px; text-align:center; line-height:1; margin-bottom:4px; font-weight:900; font-family:serif; }
@@ -166,7 +168,7 @@ section { padding: 96px 24px; }
 .traction-label { font-size:13px; color:#6B7280; font-weight:500; line-height:1.5; }
 
 /* ── Why Now ── */
-.why-layout { display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-top:48px; }
+.why-layout { display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:16px; margin-top:48px; }
 .why-card {
   background:#FFFFFF; border:1px solid #E5E7EB; border-radius:var(--radius); padding:28px 24px;
   transition: border-color .2s, transform .2s;
@@ -250,14 +252,53 @@ footer {
 
 <!-- Nav -->
 <nav>
-  <div class="nav-logo">ATOP<span>AI</span></div>
+  <div class="nav-logo">
+    <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="32" cy="32" r="30" fill="url(#navGrad)"/>
+      <defs>
+        <radialGradient id="navGrad" cx="35%" cy="30%" r="75%">
+          <stop offset="0%" stop-color="#FCCB7B"/>
+          <stop offset="55%" stop-color="#E8A94C"/>
+          <stop offset="100%" stop-color="#E2603A"/>
+        </radialGradient>
+      </defs>
+      <circle cx="24" cy="30" r="2.6" fill="#3A2415"/>
+      <circle cx="40" cy="30" r="2.6" fill="#3A2415"/>
+      <path d="M23 39q9 8 18 0" stroke="#3A2415" stroke-width="2.6" fill="none" stroke-linecap="round"/>
+    </svg>
+    Wen <span class="nav-logo-sub">for investors</span>
+  </div>
   <div class="nav-actions">
     <a href="index.html" class="nav-secondary">← Back to site</a>
   </div>
 </nav>
 
+<!-- Story -->
+<section id="story" style="padding-top:150px; padding-bottom:0">
+  <div class="container">
+    <div class="reveal" style="display:flex;align-items:center;gap:16px;margin-bottom:18px">
+      <svg width="52" height="52" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="32" cy="32" r="30" fill="url(#storyGrad)"/>
+        <defs>
+          <radialGradient id="storyGrad" cx="35%" cy="30%" r="75%">
+            <stop offset="0%" stop-color="#FCCB7B"/>
+            <stop offset="55%" stop-color="#E8A94C"/>
+            <stop offset="100%" stop-color="#E2603A"/>
+          </radialGradient>
+        </defs>
+        <circle cx="24" cy="30" r="2.6" fill="#3A2415"/>
+        <circle cx="40" cy="30" r="2.6" fill="#3A2415"/>
+        <path d="M23 39q9 8 18 0" stroke="#3A2415" stroke-width="2.6" fill="none" stroke-linecap="round"/>
+      </svg>
+      <div class="eyebrow" style="margin-bottom:0">The story behind Wen</div>
+    </div>
+    <h1 class="section-h2 reveal" style="max-width:760px">We didn't set out to build another AI SaaS product. We built Wen — a friend for the 5.4 million kids caught between two languages.</h1>
+    <p class="section-sub reveal">Here's the case for why that gap exists, why now is the moment to close it, and who's building it.</p>
+  </div>
+</section>
+
 <!-- Problem -->
-<section id="problem" style="padding-top:160px">
+<section id="problem" style="padding-top:56px">
   <div class="container">
     <div class="reveal">
       <div class="eyebrow">The problem</div>
@@ -276,11 +317,6 @@ footer {
         <div class="prob-desc">Research shows children who maintain heritage languages outperform peers in reading comprehension long-term.</div>
       </div>
       <div class="prob-card">
-        <div class="prob-num">0</div>
-        <div class="prob-label">Existing apps built for this gap</div>
-        <div class="prob-desc">Duolingo, Khan Academy, Lingokids — none teach Chinese and English simultaneously with AI adaptation.</div>
-      </div>
-      <div class="prob-card">
         <div class="prob-num">68%</div>
         <div class="prob-label">Of immigrant parents worried about language loss</div>
         <div class="prob-desc">In our interviews with 11 Bay Area families, every single parent cited this as a top concern before age 10.</div>
@@ -296,7 +332,7 @@ footer {
       <div class="demo-copy reveal">
         <div class="eyebrow">Live product demo</div>
         <h2 class="section-h2">Play it yourself. This is what a 6-year-old sees.</h2>
-        <p class="section-sub" style="font-size:15px">Every prompt is bilingual. Bao Bao the AI companion reacts in real time. Parents see detailed learning data after every session.</p>
+        <p class="section-sub" style="font-size:15px">Every prompt is bilingual. Wen reacts in real time, just like on the homepage. Parents see detailed learning data after every session.</p>
         <div class="demo-features">
           <div class="demo-feat">
             <div class="feat-icon">🧠</div>
@@ -328,11 +364,11 @@ footer {
           <div class="win-dot" style="background:#FF5F57"></div>
           <div class="win-dot" style="background:#FEBC2E;margin-left:4px"></div>
           <div class="win-dot" style="background:#28C840;margin-left:4px"></div>
-          <span style="font-size:11px;color:#9CA3AF;margin-left:10px">atop-ai.app/play</span>
+          <span style="font-size:11px;color:#9CA3AF;margin-left:10px">learntowen.com/play</span>
         </div>
         <div class="game-inner">
           <div class="g-hud">
-            <div class="g-logo">ATOP AI</div>
+            <div class="g-logo">Wen</div>
             <div class="g-stars">⭐ <span id="g-stars">0</span></div>
           </div>
           <div class="g-mode-tabs">
@@ -399,11 +435,6 @@ footer {
         <div class="why-title">Schools are not solving this</div>
         <div class="why-desc">Most US schools offer zero Chinese instruction. Chinese-American parents are buying this as a private service — the channel already exists, the product didn't.</div>
       </div>
-      <div class="why-card">
-        <div class="why-icon">📱</div>
-        <div class="why-title">Mobile-first parents need mobile-first tools</div>
-        <div class="why-desc">WeChat, Xiaohongshu, and community Facebook groups are how Chinese-American parents share recommendations. Word-of-mouth CAC in these networks is near-zero.</div>
-      </div>
     </div>
   </div>
 </section>
@@ -427,7 +458,7 @@ footer {
       </thead>
       <tbody>
         <tr class="highlight">
-          <td>ATOP AI</td>
+          <td>Wen</td>
           <td class="col-center"><span class="check-y">✓</span></td>
           <td class="col-center"><span class="check-y">✓</span></td>
           <td class="col-center"><span class="check-y">✓</span></td>
@@ -679,6 +710,8 @@ const SVGS = {
   </svg>`,
 };
 
+const WEN_AVATAR='<svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg"><circle cx="32" cy="32" r="30" fill="url(#wenDemoGrad)"/><defs><radialGradient id="wenDemoGrad" cx="35%" cy="30%" r="75%"><stop offset="0%" stop-color="#FCCB7B"/><stop offset="55%" stop-color="#E8A94C"/><stop offset="100%" stop-color="#E2603A"/></radialGradient></defs><circle cx="24" cy="30" r="2.6" fill="#3A2415"/><circle cx="40" cy="30" r="2.6" fill="#3A2415"/><path d="M23 39q9 8 18 0" stroke="#3A2415" stroke-width="2.6" fill="none" stroke-linecap="round"/></svg>';
+
 const CHARS = [
   {char:'日',pinyin:'rì',   en:'Sun',      answer:'Sun',      story:'A circle with a dot — the sun.',       choices:['Sun','Moon','Fire','Star']},
   {char:'月',pinyin:'yuè',  en:'Moon',     answer:'Moon',     story:'A crescent in the night sky.',          choices:['Moon','Star','Night','Cloud']},
@@ -727,7 +760,7 @@ function gRenderQuiz(){
   const opts=shuffle(q.choices);
   document.getElementById('g-card').innerHTML=`
     <div class="g-dots">${gDotsHtml(CHARS.length,gResults,gIdx)}</div>
-    <div class="g-companion"><div class="g-bao">🐼</div><div><div class="g-bao-name">BAO BAO</div><div class="g-bao-msg" id="g-msg">What does this picture mean? 这幅图是什么意思？</div></div></div>
+    <div class="g-companion"><div class="g-bao">${WEN_AVATAR}</div><div><div class="g-bao-name">WEN</div><div class="g-bao-msg" id="g-msg">What does this picture mean? 这幅图是什么意思？</div></div></div>
     <div style="display:flex;flex-direction:column;align-items:center;margin-bottom:4px">
       <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px">
         <span style="font-size:20px;font-weight:900;color:#E8543A;font-family:serif">${q.char}</span>
@@ -778,7 +811,7 @@ function gRenderFill(){
   const tiles=shuffle([q.answer,...q.tiles.filter(t=>t!==q.answer)]).slice(0,4);
   document.getElementById('g-card').innerHTML=`
     <div class="g-dots">${gDotsHtml(FILL_Q.length,fResults,fIdx)}</div>
-    <div class="g-companion"><div class="g-bao">🐼</div><div><div class="g-bao-name">BAO BAO</div><div class="g-bao-msg">Fill in the blank! 填空！</div></div></div>
+    <div class="g-companion"><div class="g-bao">${WEN_AVATAR}</div><div><div class="g-bao-name">WEN</div><div class="g-bao-msg">Fill in the blank! 填空！</div></div></div>
     <div style="background:#EFF5FF;color:#3B82F6;border-radius:8px;padding:4px 12px;font-size:12px;font-weight:700;text-align:center;margin-bottom:12px">${q.charHint}</div>
     <div style="font-size:17px;font-weight:700;text-align:center;margin-bottom:4px;line-height:1.5;color:#1A1A2E" id="g-sent">${q.template.replace('___','<span style="color:#C4CAD4">___</span>')}</div>
     <div style="font-size:12px;text-align:center;color:#9CA3AF;margin-bottom:14px">${q.zh}</div>
