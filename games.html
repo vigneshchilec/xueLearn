@@ -309,6 +309,25 @@
       <p class="prompt" id="playerPrompt">What happens next?</p>
       <div class="choices" id="playerChoices"></div>
       <div class="restart-row" id="playerRestartRow" style="display:none;">
+        <div class="wen-intro" style="margin:0 0 16px;max-width:420px;margin-left:auto;margin-right:auto">
+          <svg class="wen-intro-avatar" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="32" cy="32" r="30" fill="url(#wenPlayerDoneGrad)"/>
+            <defs>
+              <radialGradient id="wenPlayerDoneGrad" cx="35%" cy="30%" r="75%">
+                <stop offset="0%" stop-color="#FCCB7B"/>
+                <stop offset="55%" stop-color="#E8A94C"/>
+                <stop offset="100%" stop-color="#E2603A"/>
+              </radialGradient>
+            </defs>
+            <circle cx="24" cy="30" r="2.6" fill="#3A2415"/>
+            <circle cx="40" cy="30" r="2.6" fill="#3A2415"/>
+            <path d="M23 39q9 8 18 0" stroke="#3A2415" stroke-width="2.6" fill="none" stroke-linecap="round"/>
+          </svg>
+          <div>
+            <div class="wen-intro-name">WEN</div>
+            <div class="wen-intro-msg">What a story! I loved dreaming this one up with you. 这个故事真棒，能和你一起想出来我很开心！</div>
+          </div>
+        </div>
         <button class="restart" id="playerRestartBtn">重新开始 · Play again</button>
       </div>
     </div>

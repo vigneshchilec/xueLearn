@@ -451,13 +451,23 @@ function pickFill(btn,word,answer,template){
 function renderDone(modeKey, results) {
   var ok=results.filter(Boolean).length;
   var pct=Math.round(ok/results.length*100);
+  var childName = (activeChild && activeChild.name) ? activeChild.name : 'friend';
+  var msg = pct===100
+    ? 'You did it, '+childName+'! I\'m so proud of you! 你太棒了，我为你骄傲！'
+    : pct>=75
+      ? 'Great work today — I had so much fun with you! 今天做得很好，我很开心！'
+      : 'Nice try! Let\'s keep learning together. 再接再厉，我们一起加油！';
   document.getElementById('game-area').innerHTML=
-    '<div style="text-align:center;padding:16px 0">'+
-    '<div style="font-size:40px;margin-bottom:10px">'+(pct===100?'🌟':pct>=75?'⭐':'💪')+'</div>'+
-    '<div style="font-size:17px;font-weight:700;margin-bottom:4px">'+(pct>=75?'太棒了！':'继续加油！')+'</div>'+
-    '<div style="font-size:12px;color:#9CA3AF;margin-bottom:16px">'+ok+'/'+results.length+' · '+pct+'%</div>'+
-    '<button class="g-next" style="width:auto;padding:10px 24px" onclick="startGame()">再玩一次</button>'+
-    '</div>';
+    '<div style="text-align:center;padding:20px 0 4px">'+
+    '<div style="position:relative;width:84px;height:84px;margin:0 auto 14px;animation:doneWenPop .5s cubic-bezier(.22,1,.36,1)">'+WEN_AVATAR+
+      '<span style="position:absolute;top:-6px;right:-8px;font-size:22px;animation:doneSparkle 1.4s ease-in-out infinite">'+(pct>=75?'✨':'💛')+'</span>'+
+    '</div>'+
+    '<div style="font-size:12px;font-weight:800;letter-spacing:.06em;color:var(--orange);margin-bottom:6px">WEN</div>'+
+    '<div style="font-size:15px;font-weight:700;color:var(--text);max-width:280px;margin:0 auto 14px;line-height:1.5">'+msg+'</div>'+
+    '<div style="font-size:12px;color:#9CA3AF;margin-bottom:16px">'+ok+'/'+results.length+' correct · '+pct+'%</div>'+
+    '<button class="g-next" style="width:auto;padding:10px 24px" onclick="startGame()">再玩一次 · Play again</button>'+
+    '</div>'+
+    '<style>@keyframes doneWenPop{from{opacity:0;transform:scale(.7)}to{opacity:1;transform:scale(1)}}@keyframes doneSparkle{0%,100%{transform:scale(1) rotate(0deg)}50%{transform:scale(1.25) rotate(12deg)}}</style>';
   updateDashboard();
   logSession(modeKey, results);
 }

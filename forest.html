@@ -48,6 +48,15 @@
     color: var(--lantern-deep);
   }
   .subtitle{ margin:0; font-size:14px; color: var(--ink-soft); }
+
+  .wen-intro{
+    display:flex; gap:12px; align-items:center; text-align:left;
+    background: var(--paper-deep); border:3px solid var(--ink); border-radius: var(--card-radius);
+    padding:14px 18px; margin:22px 0 26px; box-shadow:0 6px 0 rgba(46,33,21,0.15);
+  }
+  .wen-intro-avatar{ width:44px; height:44px; flex-shrink:0; }
+  .wen-intro-name{ font-size:11px; font-weight:800; letter-spacing:.06em; color:var(--lantern-deep); margin-bottom:2px; }
+  .wen-intro-msg{ font-size:14px; color:var(--ink); font-weight:600; line-height:1.4; font-family:'Baloo 2',sans-serif; }
   .back-link{
     display:inline-block; margin-bottom:10px; font-size:13px; font-weight:600;
     color: var(--ink-soft); text-decoration:none;
@@ -192,7 +201,7 @@
 <div class="app">
   <header>
     <a class="back-link" href="games.html">&larr; Back to menu</a>
-    <p class="eyebrow">Learn Chinese through story</p>
+    <p class="eyebrow">With Wen</p>
     <h1>小明的森林历险</h1>
     <p class="subtitle">Xiaoming's Forest Adventure — tap the character that shows what he should do next</p>
   </header>
@@ -204,6 +213,25 @@
     <p class="prompt" id="prompt">What should Xiaoming do?</p>
     <div class="choices" id="choices"></div>
     <div class="restart-row" id="restartRow" style="display:none;">
+      <div class="wen-intro" style="margin:0 0 16px;max-width:420px;margin-left:auto;margin-right:auto">
+        <svg class="wen-intro-avatar" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="32" cy="32" r="30" fill="url(#wenDoneGrad)"/>
+        <defs>
+          <radialGradient id="wenDoneGrad" cx="35%" cy="30%" r="75%">
+            <stop offset="0%" stop-color="#FCCB7B"/>
+            <stop offset="55%" stop-color="#E8A94C"/>
+            <stop offset="100%" stop-color="#E2603A"/>
+          </radialGradient>
+        </defs>
+        <circle cx="24" cy="30" r="2.6" fill="#3A2415"/>
+        <circle cx="40" cy="30" r="2.6" fill="#3A2415"/>
+        <path d="M23 39q9 8 18 0" stroke="#3A2415" stroke-width="2.6" fill="none" stroke-linecap="round"/>
+      </svg>
+        <div>
+          <div class="wen-intro-name">WEN</div>
+          <div class="wen-intro-msg">What an adventure in the forest! I loved exploring with you. 森林冒险真好玩，能和你一起探索我很开心！</div>
+        </div>
+      </div>
       <button class="restart" id="restartBtn">重新开始 · Play again</button>
     </div>
   </div>
