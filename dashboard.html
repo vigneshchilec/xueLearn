@@ -4,16 +4,19 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Wen — Parent Dashboard</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 :root{
-  --pink:#FF4D6D;--orange:#FF9F1C;--teal:#2EC4B6;--purple:#7B2FBE;--blue:#3B82F6;
-  --pink-l:#FFF0F3;--orange-l:#FFF8EC;--teal-l:#E8FAFA;--purple-l:#F5EEFF;--blue-l:#EFF5FF;
-  --text:#1A1A2E;--muted:#6B7280;--white:#FFFFFF;--bg:#FAFAFA;--border:#E5E7EB;
+  --pink:#E8622E;--orange:#E8A94C;--teal:#6E8F72;--purple:#B5502F;--blue:#6E8F72;
+  --pink-l:#FCE7DA;--orange-l:#FCEED4;--teal-l:#E7EFE4;--purple-l:#F8DCD4;--blue-l:#E7EFE4;
+  --text:#241F1B;--muted:#6B5D50;--white:#FFFFFF;--bg:#FDF3E9;--border:#F0E2D0;
   --good:#22C55E;--good-l:#EFFCF3;--warn:#F59E0B;--warn-l:#FFF8EC;--bad:#EF4444;--bad-l:#FEF1F1;
 }
-body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",system-ui,sans-serif;background:var(--bg);color:var(--text);min-height:100vh}
+body{font-family:'Nunito',-apple-system,BlinkMacSystemFont,"Segoe UI",system-ui,sans-serif;background:var(--bg);color:var(--text);min-height:100vh}
 
 /* Nav */
 .nav{background:var(--white);border-bottom:2px solid var(--border);padding:12px 24px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:10;box-shadow:0 2px 8px rgba(0,0,0,0.04)}
@@ -147,7 +150,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",system-ui,sans-seri
   <div class="dash-header">
     <div class="child-row" id="child-row">
       <button class="child-pill active" data-child="ming">
-        <span class="child-avatar" style="background:#3B82F6">XM</span>Xiao Ming
+        <span class="child-avatar" style="background:#E8A94C">XM</span>Xiao Ming
       </button>
       <button class="child-pill" data-child="li">
         <span class="child-avatar" style="background:#22C55E">XL</span>Xiao Li
