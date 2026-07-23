@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ATOP AI — Choose Activity</title>
+<title>Wen — Choose Activity</title>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
@@ -14,7 +14,8 @@
 }
 body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",system-ui,sans-serif;background:var(--bg);color:var(--text);min-height:100vh}
 .nav{background:var(--white);border-bottom:2px solid var(--border);padding:12px 24px;display:flex;align-items:center;justify-content:space-between;box-shadow:0 2px 8px rgba(0,0,0,0.04)}
-.nav-logo{font-size:17px;font-weight:800;letter-spacing:-0.5px;color:var(--text);text-decoration:none;cursor:pointer}.nav-logo span{color:var(--pink)}
+.nav-logo{display:flex;align-items:center;gap:8px;font-size:17px;font-weight:800;letter-spacing:-0.5px;color:var(--text);text-decoration:none;cursor:pointer}
+.nav-logo svg{width:28px;height:28px;flex-shrink:0}
 .nav-right{display:flex;align-items:center;gap:10px}
 .nav-user{font-size:13px;color:var(--muted)}
 .nav-signout{font-size:13px;color:var(--muted);cursor:pointer;border:1.5px solid var(--border);border-radius:99px;padding:5px 12px;background:transparent;font-family:inherit;transition:all .15s}
@@ -22,9 +23,14 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",system-ui,sans-seri
 .nav-dashboard{font-size:13px;font-weight:700;color:#3B82F6;text-decoration:none;border:1.5px solid #C9DEFF;background:#EFF5FF;border-radius:99px;padding:6px 14px;transition:all .15s}
 .nav-dashboard:hover{background:#E0ECFF}
 .main{max-width:600px;margin:0 auto;padding:40px 20px}
-.greeting{font-size:26px;font-weight:800;margin-bottom:6px;color:var(--text)}
-.greeting span{color:var(--orange)}
-.sub{font-size:15px;color:var(--muted);margin-bottom:32px}
+.wen-greet{display:flex;gap:14px;align-items:flex-start;margin-bottom:32px}
+.wen-greet-avatar{width:64px;height:64px;flex-shrink:0;animation:wen-breathe 4.5s ease-in-out infinite}
+@keyframes wen-breathe{0%,100%{transform:scale(1)}50%{transform:scale(1.04)}}
+.wen-greet-bubble{background:var(--white);border:2px solid var(--border);border-radius:18px;border-top-left-radius:4px;padding:14px 18px;box-shadow:0 4px 16px rgba(0,0,0,0.05)}
+.wen-greet-name{font-size:10px;font-weight:800;letter-spacing:.08em;color:#E8622E;margin-bottom:3px}
+.wen-greet-msg{font-size:16px;font-weight:700;color:var(--text)}
+.wen-greet-msg span{color:#E8622E}
+.wen-greet-sub{font-size:13px;color:var(--muted);margin-top:3px;font-weight:500}
 .child-row{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:32px}
 .child-pill{display:flex;align-items:center;gap:8px;padding:8px 16px;border-radius:99px;border:2px solid var(--border);background:var(--white);cursor:pointer;transition:all .15s;font-size:14px;font-weight:600;color:var(--muted)}
 .child-pill.active{background:var(--pink-l);border-color:var(--pink);color:var(--pink)}
@@ -68,7 +74,22 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",system-ui,sans-seri
 <body>
 
 <nav class="nav">
-  <a class="nav-logo" href="/">ATOP<span>AI</span></a>
+  <a class="nav-logo" href="/">
+    <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="32" cy="32" r="30" fill="url(#navGrad)"/>
+      <defs>
+        <radialGradient id="navGrad" cx="35%" cy="30%" r="75%">
+          <stop offset="0%" stop-color="#FCCB7B"/>
+          <stop offset="55%" stop-color="#E8A94C"/>
+          <stop offset="100%" stop-color="#E2603A"/>
+        </radialGradient>
+      </defs>
+      <circle cx="24" cy="30" r="2.6" fill="#3A2415"/>
+      <circle cx="40" cy="30" r="2.6" fill="#3A2415"/>
+      <path d="M23 39q9 8 18 0" stroke="#3A2415" stroke-width="2.6" fill="none" stroke-linecap="round"/>
+    </svg>
+    Wen
+  </a>
   <div class="nav-right">
     <a class="nav-dashboard" href="dashboard.html">📊 Dashboard</a>
     <span class="nav-user" id="nav-user"></span>
@@ -77,8 +98,29 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",system-ui,sans-seri
 </nav>
 
 <div class="main">
-  <div class="greeting">Ready to learn, <span id="child-name-display">friend</span>! 🎉</div>
-  <div class="sub">Pick an activity to start today's session · 选择今天的学习活动</div>
+  <div class="wen-greet">
+    <svg class="wen-greet-avatar" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <radialGradient id="wenGreetBody" cx="35%" cy="30%" r="75%">
+          <stop offset="0%" stop-color="#FCCB7B"/>
+          <stop offset="55%" stop-color="#E8A94C"/>
+          <stop offset="100%" stop-color="#E2603A"/>
+        </radialGradient>
+      </defs>
+      <circle cx="100" cy="100" r="96" fill="url(#wenGreetBody)"/>
+      <text x="100" y="114" text-anchor="middle" font-size="40" font-weight="900" fill="#7A3A16" opacity="0.45">文</text>
+      <circle cx="82" cy="92" r="6" fill="#3A2415"/>
+      <circle cx="118" cy="92" r="6" fill="#3A2415"/>
+      <path d="M78 116q22 20 44 0" stroke="#3A2415" stroke-width="5.5" fill="none" stroke-linecap="round"/>
+      <ellipse cx="66" cy="108" rx="8" ry="5" fill="#fff" opacity=".3"/>
+      <ellipse cx="134" cy="108" rx="8" ry="5" fill="#fff" opacity=".3"/>
+    </svg>
+    <div class="wen-greet-bubble">
+      <div class="wen-greet-name">WEN</div>
+      <div class="wen-greet-msg">Hi <span id="child-name-display">friend</span>! Ready to learn together? 🎉</div>
+      <div class="wen-greet-sub">Pick an activity to start today's session · 选择今天的学习活动</div>
+    </div>
+  </div>
 
   <!-- Child selector -->
   <div class="child-row" id="child-row"></div>

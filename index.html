@@ -196,25 +196,23 @@ nav{
 @media(max-width:900px){ .love-grid{ grid-template-columns:1fr 1fr; } }
 @media(max-width:520px){ .love-grid{ grid-template-columns:1fr; } }
 
-/* ── Stories / testimonials ── */
-.stories-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:22px; }
-.story-card{
+/* ── Team ── */
+.team-grid{ display:grid; grid-template-columns:1fr 1fr; gap:22px; max-width:760px; margin:0 auto; }
+.team-card{
   background:var(--card); border-radius:var(--radius-lg);
-  padding:26px 24px; display:flex; flex-direction:column; gap:15px;
+  padding:28px 26px; display:flex; gap:16px; align-items:flex-start;
   box-shadow: var(--shadow-soft);
 }
-.story-quote{ font-size:15px; color:var(--ink); line-height:1.65; font-weight:700; }
-.story-quote::before{ content:'“'; color:var(--terracotta); font-size:28px; font-weight:900; line-height:0; display:block; margin-bottom:4px; }
-.story-who{ display:flex; align-items:center; gap:11px; margin-top:auto; }
-.story-avatar{
-  width:36px; height:36px; border-radius:50%; flex-shrink:0;
+.team-avatar{
+  width:50px; height:50px; border-radius:50%; flex-shrink:0;
   display:flex; align-items:center; justify-content:center;
-  font-weight:800; font-size:13.5px; color:#fff;
+  font-weight:900; font-size:18px; color:#fff;
 }
-.story-name{ font-size:13.5px; font-weight:800; color:var(--ink); }
-.story-meta{ font-size:12px; color:var(--muted); font-weight:700; }
+.team-name{ font-size:16px; font-weight:800; color:var(--ink); margin-bottom:2px; }
+.team-title{ font-size:12.5px; font-weight:700; color:var(--terracotta); margin-bottom:8px; }
+.team-bio{ font-size:13.5px; color:var(--ink-soft); line-height:1.6; font-weight:600; }
 
-@media(max-width:840px){ .stories-grid{ grid-template-columns:1fr; } }
+@media(max-width:700px){ .team-grid{ grid-template-columns:1fr; } }
 
 /* ── CTA banner ── */
 .cta-section{ padding: 70px 0 90px; }
@@ -278,7 +276,7 @@ footer{
   <div class="nav-links">
     <a class="nav-link" href="#families">Why Wen</a>
     <a class="nav-link" href="#how">How it works</a>
-    <a class="nav-link" href="#stories">Stories</a>
+    <a class="nav-link" href="#team">Team</a>
     <a class="nav-link" href="#footer">About us</a>
   </div>
   <div class="nav-actions">
@@ -430,42 +428,28 @@ footer{
   </div>
 </section>
 
-<!-- Stories -->
-<section id="stories">
+<!-- Team -->
+<section id="team">
   <div class="container">
     <div class="sec-head reveal">
-      <div class="sec-eyebrow">Stories from families</div>
-      <h2 class="sec-title">What it feels like to have Wen at home</h2>
+      <div class="sec-eyebrow">Who's building Wen</div>
+      <h2 class="sec-title">Built by people who live this problem</h2>
     </div>
-    <div class="stories-grid">
-      <div class="story-card reveal">
-        <div class="story-quote">My daughter talks to Wen like it's her friend. I never thought she'd choose Chinese over her tablet games.</div>
-        <div class="story-who">
-          <div class="story-avatar" style="background:#E2603A">M</div>
-          <div>
-            <div class="story-name">Mei</div>
-            <div class="story-meta">Mom of Lily, 6 · San Francisco</div>
-          </div>
+    <div class="team-grid">
+      <div class="team-card reveal">
+        <div class="team-avatar" style="background:#E2603A">T</div>
+        <div>
+          <div class="team-name">Tina</div>
+          <div class="team-title">Founder &amp; CEO</div>
+          <div class="team-bio">Chinese immigrant and software engineer raising a bilingual child in the Bay Area. Full-stack + AI background.</div>
         </div>
       </div>
-      <div class="story-card reveal">
-        <div class="story-quote">We moved here when my son was two. Wen is one of the only things that keeps him talking to his grandparents in Chinese.</div>
-        <div class="story-who">
-          <div class="story-avatar" style="background:#6E8F72">D</div>
-          <div>
-            <div class="story-name">David</div>
-            <div class="story-meta">Dad of Ethan, 7 · Seattle</div>
-          </div>
-        </div>
-      </div>
-      <div class="story-card reveal">
-        <div class="story-quote">It's not another app I have to force him to open. He asks for "Wen time" every night before bed.</div>
-        <div class="story-who">
-          <div class="story-avatar" style="background:#E8A94C">P</div>
-          <div>
-            <div class="story-name">Priya</div>
-            <div class="story-meta">Mom of Arjun, 5 · Austin</div>
-          </div>
+      <div class="team-card reveal">
+        <div class="team-avatar" style="background:#6E8F72">V</div>
+        <div>
+          <div class="team-name">Vignesh</div>
+          <div class="team-title">Founder, CPO &amp; CRO</div>
+          <div class="team-bio">Product and platform engineering background across Fortune 500 companies. Learning Mandarin as a non-native speaker.</div>
         </div>
       </div>
     </div>
