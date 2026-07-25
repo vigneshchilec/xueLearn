@@ -8,6 +8,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700&family=Noto+Sans+SC:wght@700;900&family=ZCOOL+KuaiLe&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="wenContext.js"></script>
 <style>
   :root{
     --paper: #F5EFD9;
@@ -98,6 +99,17 @@
     font-size: 12px;
     color: var(--ink-soft);
     display:block;
+  }
+  .game-card{ position:relative; }
+  .wen-pick-badge{
+    position:absolute; top:-9px; left:50%; transform:translateX(-50%);
+    background: var(--lantern); color:#fff; font-family:'Baloo 2',sans-serif;
+    font-size:10.5px; font-weight:700; padding:3px 10px; border-radius:99px;
+    white-space:nowrap; box-shadow:0 3px 0 rgba(46,33,21,0.2); border:2px solid var(--ink);
+  }
+  .wen-pick-reason{
+    font-size:11px; color: var(--lantern-deep); font-weight:600;
+    margin-top:6px; line-height:1.35; font-family:'Baloo 2',sans-serif;
   }
 
   @media (max-width:480px){
@@ -265,7 +277,7 @@
         <span class="title-cn">小明的森林历险</span>
         <span class="title-en">Forest Adventure</span>
       </a>
-      <a class="game-card" href="city.html">
+      <a class="game-card" href="city.html" id="card-city.html">
         <span class="emoji">🏙️</span>
         <span class="title-cn">小美的城市大冒险</span>
         <span class="title-en">Lost in the City</span>
@@ -355,6 +367,21 @@ document.getElementById('signOutBtn').addEventListener('click', async () => {
   await sb.auth.signOut();
   window.location.href = 'login.html';
 });
+
+// Wen's story recommendation, driven by demo memory
+(function(){
+  const rec = getRecommendedStory();
+  const card = document.querySelector('.game-card[href="' + rec.slug + '"]');
+  if (!card) return;
+  const badge = document.createElement('span');
+  badge.className = 'wen-pick-badge';
+  badge.textContent = "✨ Wen's pick";
+  card.appendChild(badge);
+  const reason = document.createElement('span');
+  reason.className = 'wen-pick-reason';
+  reason.textContent = rec.reason;
+  card.appendChild(reason);
+})();
 
 // ── Custom story generation ───────────────────────────────────────────────────
 const API_BASE = 'https://atop-backend.onrender.com';

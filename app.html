@@ -8,6 +8,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="wenContext.js"></script>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 :root{
@@ -357,7 +358,7 @@ function renderQuiz() {
   const area=document.getElementById('game-area');
   area.innerHTML=
     '<div class="g-dots">'+dotsHtml(CHARS.length,qResults,qIdx)+'</div>'+
-    '<div class="g-companion"><div class="g-bao" id="bao">'+WEN_AVATAR+'</div><div><div class="g-bao-name">WEN</div><div class="g-bao-msg" id="bmsg">'+rand(BAO_INTRO)+'</div></div></div>'+
+    '<div class="g-companion"><div class="g-bao" id="bao">'+WEN_AVATAR+'</div><div><div class="g-bao-name">WEN</div><div class="g-bao-msg" id="bmsg">'+(qIdx===0?getRecommendedQuiz():rand(BAO_INTRO))+'</div></div></div>'+
     '<div class="g-pic">'+q.svg+'</div>'+
     '<div class="g-pinyin">'+q.pinyin+'</div>'+
     '<div class="g-choices" id="choices"></div>'+

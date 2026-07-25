@@ -8,6 +8,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="wenContext.js"></script>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 :root{
@@ -54,6 +55,7 @@ body{font-family:'Nunito',-apple-system,BlinkMacSystemFont,"Segoe UI",system-ui,
 .tag-orange{background:var(--orange-l);color:var(--orange)}
 .tag-purple{background:var(--purple-l);color:var(--purple)}
 .activity-chars{font-size:28px;font-family:serif;font-weight:900;margin-top:12px;letter-spacing:4px;color:var(--pink)}
+.activity-wen-tip{font-size:12px;font-weight:700;color:var(--muted);margin-top:10px;font-style:italic}
 .streak-bar{background:var(--white);border:2px solid var(--border);border-radius:16px;padding:16px 20px;display:flex;align-items:center;gap:16px}
 .streak-emoji{font-size:28px}
 .streak-text{flex:1}
@@ -120,7 +122,7 @@ body{font-family:'Nunito',-apple-system,BlinkMacSystemFont,"Segoe UI",system-ui,
     </svg>
     <div class="wen-greet-bubble">
       <div class="wen-greet-name">WEN</div>
-      <div class="wen-greet-msg">Hi <span id="child-name-display">friend</span>! Ready to learn together? 🎉</div>
+      <div class="wen-greet-msg" id="wen-today-msg">Hi friend! I found two adventures for us today. 🎉</div>
       <div class="wen-greet-sub">Pick an activity to start today's session · 选择今天的学习活动</div>
     </div>
   </div>
@@ -137,6 +139,7 @@ body{font-family:'Nunito',-apple-system,BlinkMacSystemFont,"Segoe UI",system-ui,
       <div class="activity-desc">Match Chinese characters to their meanings through pictures and fill-in-the-blank games.</div>
       <span class="activity-tag tag-orange">图画测验</span>
       <div class="activity-chars">日 月 山 水</div>
+      <div class="activity-wen-tip" id="quiz-wen-tip">Let's see if 日 and 月 still look familiar today.</div>
     </a>
     <a class="activity-card story" href="games.html">
       <div class="activity-emoji">📖</div>
@@ -196,6 +199,8 @@ sb.auth.getSession().then(({ data }) => {
   currentUser = data.session.user;
   const name = currentUser.user_metadata?.full_name || currentUser.email.split('@')[0];
   document.getElementById('nav-user').textContent = 'Hi, ' + name + ' 👋';
+  document.getElementById('wen-today-msg').textContent = getTodayMessage();
+  document.getElementById('quiz-wen-tip').textContent = getRecommendedQuiz();
   loadChildren();
   loadStreak();
 });
@@ -231,7 +236,8 @@ function renderChildren() {
 
 function selectChild(child) {
   activeChild = child;
-  document.getElementById('child-name-display').textContent = child.name;
+  document.getElementById('wen-today-msg').textContent = getTodayMessage(child.name);
+  document.getElementById('quiz-wen-tip').textContent = getRecommendedQuiz();
   localStorage.setItem('atop_active_child', JSON.stringify(child));
   renderChildren();
 }

@@ -8,6 +8,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="wenContext.js"></script>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 :root{
@@ -373,7 +374,11 @@ document.getElementById('child-row').addEventListener('click', (e) => {
   if (!pill) return;
   document.querySelectorAll('.child-pill').forEach(p => p.classList.remove('active'));
   pill.classList.add('active');
+  const pillName = Array.from(pill.childNodes).filter(n => n.nodeType === 3).map(n => n.textContent).join('').trim();
+  document.getElementById('wen-summary-text').textContent = getDashboardSummary(pillName);
 });
+
+document.getElementById('wen-summary-text').textContent = getDashboardSummary();
 </script>
 </body>
 </html>
